@@ -1,0 +1,16 @@
+version: "3"
+services:
+    nodejs:
+      image: tietokatalogi-frontend:latest
+      container_name: tietokatalogi-frontend
+      ports: 
+        - 3000:3000
+      networks:
+        - tietokatalogi-backend_default
+      environment: 
+        REACT_APP_BASE_REST_URL: tietokatalogi/rest
+        NODE_ENV: production
+        BABEL_ENV: production
+networks:
+    tietokatalogi-backend_default:
+        external: true

@@ -1,0 +1,49 @@
+// Replicates bootstrap media breakpoints an queries
+$screen-xs:                  480px;
+$screen-xs-min:              $screen-xs;
+
+$screen-sm:                  768px;
+$screen-sm-min:              $screen-sm;
+
+$screen-md:                  992px;
+$screen-md-min:              $screen-md;
+
+$screen-lg:                  1200px;
+$screen-lg-min:              $screen-lg;
+
+$screen-xs-max:              ($screen-sm-min - 1);
+$screen-sm-max:              ($screen-md-min - 1);
+$screen-md-max:              ($screen-lg-min - 1);
+
+
+@media (min-width: $screen-sm-min) {
+
+}
+
+@media (min-width: $screen-md-min) {
+
+}
+
+@media (min-width: $screen-lg-min) {
+
+}
+
+// Override bootstrap defaults
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+   background-color: $light-grey;
+ }
+
+ .table-striped>tbody>tr:last-child:nth-child(odd)>td {
+   border-bottom: 1px solid #ddd;
+ }
+
+ .table-striped>thead>tr>th {
+   border: none;
+ }
+
+ .panel-default {
+   .panel-heading {
+     background-color: $light-grey;
+   }
+ }

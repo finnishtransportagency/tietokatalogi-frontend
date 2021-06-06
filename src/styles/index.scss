@@ -1,0 +1,360 @@
+// NB css-loader cannot parse relative paths in imported css
+// both bootstrap & font-awesome has '../fonts' replaced with '/fonts'
+@import "./variables.scss";
+@import "./react-select.css";
+@import "./react-datepicker.css";
+@import "./bootstrap/dist/css/bootstrap.css";
+@import "./bootstrap-custom.scss";
+@import "./graph.scss";
+@import "./react-form.scss";
+@import "./overrides.scss";
+@import "../../node_modules/swagger-ui-react/swagger-ui.css";
+
+body {
+    font-family: sans-serif;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    padding-bottom: 0.75em;
+    -ms-overflow-style: scrollbar;
+    overflow-x: hidden;
+}
+
+#maincontainer {
+}
+
+#firstrow {
+    padding-top: 64px;
+    @media (max-width: $screen-sm) {
+        padding-top: 225px;
+    }
+}
+
+#secondrow {
+}
+
+#logo {
+    min-width: 200px;
+    max-width: 200px;
+}
+
+#logoimage {
+    width: 100%;
+}
+
+#menu {
+    .sidebar-arrow {
+        margin-left: 1em;
+    }
+    .nav-pills {
+        li {
+            float: none;
+        }
+    }
+    ul.nav {
+        li.nav-item {
+            max-width: 15em;
+            padding-top: 0.5em;
+            padding-bottom: 0.5em;
+            background: $white;
+
+            a {
+                color: $cyan;
+            }
+
+            .active {
+                background: $cyan;
+                color: $white;
+            }
+
+            a {
+                &:hover {
+                    background-color: $light-grey;
+                }
+            }
+        }
+    }
+    .nav-level-2 {
+        margin-left: 1em;
+    }
+    .nav-level-3 {
+        margin-left: 2em;
+    }
+}
+
+#phoneMenu {
+    .sidebar-arrow {
+        margin-left: 0.5em;
+    }
+    .nav-pills {
+        li {
+            float: none;
+        }
+    }
+    ul.nav {
+        li.nav-item {
+            padding-top: 0.5em;
+            padding-bottom: 0.5em;
+            background: $white;
+            text-align: center;
+
+            a {
+                font-size: 1.2em;
+                color: $cyan;
+            }
+            a.nav-header {
+                font-size: 1.5em;
+                color: $cyan;
+                &.active {
+                    background: $cyan;
+                    color: $white;
+                }
+            }
+
+            a.nav-link {
+                &.active {
+                    background: $cyan;
+                    color: $white;
+                }
+            }
+
+            a {
+                &:hover {
+                    background-color: $light-grey;
+                }
+            }
+        }
+    }
+}
+
+#phoneLogo {
+    height: 1.5em;
+    width: 1.5em;
+    vertical-align: middle;
+    margin-right: 0.5em;
+}
+
+.form-control {
+    &.tk-field {
+        &:disabled,
+        &[readonly] {
+            background-color: transparent;
+            border: none;
+            border-radius: none;
+            box-shadow: none;
+        }
+    }
+}
+
+.jarjestelma-salkku {
+    h1 {
+        margin-top: 0;
+        padding-top: 0;
+        text-align: center;
+    }
+}
+
+.float-bottom.griddle-paginator {
+    text-align: center;
+    background-color: white;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    button.btn {
+        &.btn-primary {
+            background-color: $cyan;
+            border-color: $cyan;
+        }
+    }
+}
+
+.filter-toolbar {
+    margin-bottom: 1em;
+    @media (max-width: $screen-sm-min) {
+        .filter {
+            margin-top: 0.5em;
+        }
+    }
+}
+
+i + h4 {
+    display: inline-block;
+}
+
+a.name-link {
+    color: $cyan;
+    &:hover {
+        color: darken($cyan, 20%);
+        text-decoration: none;
+    }
+}
+
+.no-results {
+    background-color: $light-grey;
+    padding: 3em;
+    text-align: center;
+}
+
+.textarea-div {
+    height: 100%;
+    word-break: break-all;
+}
+
+.form-group.row {
+    .col-lg-6,
+    .col-md-6,
+    .col-sm-6 {
+        margin-bottom: 15px;
+    }
+    .col-lg-6:last-child,
+    .col-md-6:last-child,
+    .col-sm-6:last-child {
+        margin-bottom: 0px;
+    }
+}
+
+.extra-margin-bottom {
+    margin-bottom: 15px;
+}
+
+.float-right {
+    float: right;
+}
+
+@media (min-width: 1200px) and (max-width: 1550px) {
+    .col-lg-6.col-custom-lg-6 {
+        width: 100%;
+    }
+}
+
+.float-bottom {
+    position: fixed;
+    bottom: 0;
+    padding: 0.7em 0.4em;
+    margin-left: 0;
+}
+
+.float-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 1em;
+    background-color: white;
+}
+
+.form-controls {
+    background-color: darkgrey;
+    .delete-button {
+        float: right;
+        margin-right: 20px;
+    }
+}
+
+.footer-gutter {
+    margin-bottom: 4em;
+}
+
+.contacts {
+    margin-top: 3em;
+    margin-left: 4em;
+    @media (min-width: $screen-lg) {
+        width: 50%;
+    }
+}
+
+.filter-toolbar {
+    background-color: white;
+}
+
+#menu {
+    position: fixed;
+    top: 1em;
+    ul {
+        padding-top: 1em;
+    }
+}
+
+#logo {
+    @media (min-width: 1200px) and (max-width: 1280px) {
+        min-width: 190px;
+        max-width: 190px;
+    }
+}
+
+.table {
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+.no-gutter {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.no-gutter > [class*="col-"] {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.dynamic-form {
+    .row {
+        padding-bottom: 0.5em;
+    }
+    [class^="col-"] {
+        padding-left: 0.2em;
+        padding-right: 0.2em;
+    }
+
+    // One way to stripe the list
+    // Doesn't work so well with multi-level list
+    // .container-fluid .row:nth-of-type(even) {
+    //     background-color: #dcdcdc;
+    // }
+    // .container-fluid .row:nth-of-type(odd) {
+    //     background-color: #aaaaaa;
+    // }
+}
+
+.category-column {
+    width: 100%;
+}
+
+.category-row {
+    display: flex;
+}
+
+.btn-column {
+    position: absolute;
+    bottom: 28px;
+    right: 0;
+}
+
+.modal {
+    display: inline-block;
+}
+
+@media (min-width: 768px) {
+    .modal-dialog-default {
+        width: 500px;
+        margin: 80px auto;
+    }
+}
+
+.modal-header {
+    padding: 18px;
+}
+
+.modal-footer {
+    padding-top: 32px;
+    div {
+        display: inline-block;
+        padding-left: 1em;
+    }
+}
+
+// This fixes some style issues in the swagger view that are caused
+// by the swagger stylesheet not working properly with bootstrap.
+.swagger-ui {
+    .version, .base-url {
+        background-color: initial;
+        border: initial;
+    }
+}

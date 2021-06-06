@@ -1,0 +1,43 @@
+// react-datepicker
+
+.react-datepicker-popper {
+    //width: 100%;
+    z-index: 100;
+    .react-datepicker {
+        //width: 100%;
+        font-size: inherit;
+        .react-datepicker__month-container {
+            //width: 100%;
+            .react-datepicker__header {
+                padding: 1em;
+                .react-datepicker__current-month {
+                    font-size: inherit;
+                }
+            }
+        }
+        .react-datepicker__navigation--previous {
+            top: 1.5em;
+        }
+        .react-datepicker__navigation--next {
+            top: 1.5em;
+        }
+    }
+}
+
+// react-select
+
+.form-control {
+    &.tk-field {
+        &.Select {
+            padding: 0;
+            background-color: transparent;
+            border: none;
+            border-radius: none;
+            box-shadow: none;
+        }
+    }
+    // Allow the height of tietovirta rows to change according to their multiselect size
+    &.tk-field-autoheight {
+        height: auto;
+    }
+  }
