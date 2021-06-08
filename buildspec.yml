@@ -1,0 +1,25 @@
+version: 0.2
+phases:
+  pre_build:
+    commands:
+      - echo Logging to ECR...
+      - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPOSITORY_URI
+      - set
+      - echo Installing npm dependencies...
+      - npm install
+      - npm install react-scripts --silent
+  build:
+    commands:
+      - echo Build started on `date`
+      - npm run build
+      - docker build -f Dockerfile -t $ECR_REPOSITORY_NAME:latest .
+  post_build:
+    commands:
+      - echo Post-build started on `date`
+      - docker tag $ECR_REPOSITORY_NAME:latest $ECR_REPOSITORY_URI:latest
+      - docker tag $ECR_REPOSITORY_NAME:latest $ECR_REPOSITORY_URI:$CODEBUILD_BUILD_NUMBER
+      - docker push $ECR_REPOSITORY_URI:latest
+      - docker push $ECR_REPOSITORY_URI:$CODEBUILD_BUILD_NUMBER
+      - printf '[{"name":"%s","imageUri":"%s"}]' $ECS_SERVICE_NAME $REPOSITORY:latest > imagedefinitions.json
+artifacts:
+  files: imagedefinitions.json
