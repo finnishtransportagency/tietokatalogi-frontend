@@ -12,7 +12,7 @@ phases:
     commands:
       - echo Build started on `date`
       - npm run build
-      - docker build -f Dockerfile -t $ECR_REPOSITORY_NAME:latest .
+      - docker build -f Dockerfile.aws -t $ECR_REPOSITORY_NAME:latest .
   post_build:
     commands:
       - echo Post-build started on `date`
