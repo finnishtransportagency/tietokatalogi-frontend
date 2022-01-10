@@ -45,10 +45,16 @@ export class TietojarjestelmapalveluForm extends HenkiloRooli {
                 onSubmit={values => {
                     const mappedValues = {
                         ...values,
-                        tietolajit: values.tietolajit ? values.tietolajit.map(tl => {return {tunnus: tl.value, nimi: tl.label};}) : []
+                        tietolajit: values.tietolajit ? values.tietolajit.map(tl => ({
+                            tunnus: tl.value,
+                            nimi: tl.label,
+                            ...(tl.liittyvaJarjestelmaTunnus ? { liittyvaJarjestelmaTunnus: tl.liittyvaJarjestelmaTunnus } : {} ),
+                        })) : [],
+                        relatedJarjestelmaIds: values.liittyvaJarjestelma,
                     };
                     delete mappedValues["fetchRooliHenkiloList"];
                     delete mappedValues["noRightsToModify"];
+                    delete mappedValues["liittyvaJarjestelma"];
                     onSubmit(mappedValues);
                 }}
                 defaultValues={values}
@@ -110,7 +116,6 @@ export class TietojarjestelmapalveluForm extends HenkiloRooli {
 
                             <div className="form-group row">
                                 {Object.keys(roleToRolepersonList).map(roleId => {
-                                    const allowToMod = this.modifyRoles.includes(parseInt(roleId, 10));
                                     return (
                                         <div className="col-sm-6" key={roleId}>
                                             <div className="col-sm-12">

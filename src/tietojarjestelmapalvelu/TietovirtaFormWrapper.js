@@ -7,6 +7,7 @@ import { FormField } from "react-form";
 import { CustomSelect } from "../form/CustomSelect";
 import { TietolajiSelectWrapper } from "../form/TietolajiSelectWrapper";
 import { TietoryhmaSelectWrapper } from "../form/TietoryhmaSelectWrapper";
+import { CustomMultiselect } from "../form/CustomMultiselect";
 
 
 /**
@@ -20,21 +21,30 @@ class TietovirtaFormWrapper extends React.Component {
     /**
      * An idempotent mapping from the format of fetched data to the format expected by the select components.
      * 
-     * @param {[{tunnus: Number, nimi: String} | {value: Number, label: String}]} arr
+     * @param {[{tunnus: Number, nimi: String, liittyvaJarjestelmaTunnus: Number} | {value: Number, label: String}]} arr
      * @returns {[{value: Number, label: String}]}
      */
     mapToFormFormat(arr) {
         if (!arr) return;
         return arr.map(obj => {
             if (obj.hasOwnProperty("value")) return obj;
+            const liittyvaJarjestelmaTunnus = obj.liittyvaJarjestelmaTunnus;
             return {
                 value: obj.tunnus,
-                label: obj.nimi
+                label: obj.nimi,
+                ...(liittyvaJarjestelmaTunnus ? { liittyvaJarjestelmaTunnus } : {} ),
             };
         });
     }
 
-    // TODO: the use of the following three methods could be optimized by e.g. memoization
+
+    filterTietolajiFromJarjestelma(looginen, tietolaji, jarjestelmaTunnus) {
+        const looginenTunnusList = looginen
+            .filter(l => l.jarjestelmaIds.includes(jarjestelmaTunnus))
+            .map(l => l.tunnus);
+        return tietolaji
+            .filter(tl => looginenTunnusList.includes(tl.looginenTietovarantoTunnus));
+    }
 
     /**
      * Returns the possible options for tietolaji select.
@@ -45,17 +55,29 @@ class TietovirtaFormWrapper extends React.Component {
      * While not editing, the options are the same as the displayed values.
      */
     @action
-    getTietolajiOptions(looginen, tietolaji, jarjestelmaTunnus) {
+    getTietolajiOptions(looginen, tietolaji, jarjestelmaTunnus, relatedJarjestelmaTunnus, jarjestelmaNames) {
         if (!this.props.edit) {
-            return this.mapToFormFormat(this.props.formApi.values["tietolajit"]);
+            return this.props.formApi.values["tietolajit"];
         }
-        const filteredLooginen = looginen.filter(l => l.jarjestelmaIds.includes(jarjestelmaTunnus));
-        const looginenTunnusList = filteredLooginen.map(l => l.tunnus);
-        const filteredTietolaji = tietolaji.filter(tl => {
-            return looginenTunnusList.includes(tl.looginenTietovarantoTunnus);
-        });
+        const filteredTietolaji = this.filterTietolajiFromJarjestelma(looginen, tietolaji, jarjestelmaTunnus);
+        if (!relatedJarjestelmaTunnus) return this.mapToFormFormat(filteredTietolaji);
 
-        return this.mapToFormFormat(filteredTietolaji);
+        // Add tietolaji of current jarjestelma
+        const tietolajiById = filteredTietolaji.reduce((acc, tl) => ({
+            ...acc,
+            [tl.tunnus]: acc[tl.tunnus] || tl
+        }), {});
+
+        // Add tietolaji of related jarjestelma, appending jarjestelma name to tietolaji name
+        relatedJarjestelmaTunnus.forEach(jarjestelmaId => {
+            const filteredTietolaji = this.filterTietolajiFromJarjestelma(looginen, tietolaji, Number(jarjestelmaId));
+            filteredTietolaji.forEach(tl => {
+                const oldName = tietolajiById[tl.tunnus] ? tietolajiById[tl.tunnus].nimi : tl.nimi;
+                const newName = `${oldName} (${jarjestelmaNames[jarjestelmaId]})`;
+                tietolajiById[tl.tunnus] =  {...tl, nimi: newName, liittyvaJarjestelmaTunnus: jarjestelmaId };
+            });
+        });
+        return this.mapToFormFormat(Object.values(tietolajiById));
     }
 
     /**
@@ -67,13 +89,11 @@ class TietovirtaFormWrapper extends React.Component {
      * When not editing, the displayed values are what have been fetched from the backend.
      */
     @action
-    getTietolajiValues(looginen, tietolaji, jarjestelmaTunnus) {
-        const formValues = this.mapToFormFormat(this.props.formApi.values["tietolajit"]) || [];
+    getTietolajiValues(formValues, options) {
         if (!this.props.edit) {
             return formValues;
         }
         
-        const options = this.getTietolajiOptions(looginen, tietolaji, jarjestelmaTunnus);
         const optionsValues = options.map(opt => opt.value);
         return formValues.filter(v => optionsValues.includes(v.value));
     }
@@ -86,18 +106,13 @@ class TietovirtaFormWrapper extends React.Component {
      * When not editing, the displayed values are what have been fetched from the backend.
      */
     @action
-    getTietoryhmaData(looginen, tietolaji, tietoryhma, jarjestelmaTunnus) {
+    getTietoryhmaData(tietolajiValues, tietolaji, tietoryhma) {
         if (!this.props.edit) {
             return this.mapToFormFormat(this.props.formApi.values["tietoryhmat"]) || [];
         }
-
-        const formTietolaji = this.getTietolajiValues(looginen, tietolaji, jarjestelmaTunnus);
-        const formTietolajiIDs = formTietolaji.map(tl => tl.value);
-        const completeTietolaji = tietolaji.filter(tl => formTietolajiIDs.includes(tl.tunnus));
-        const filteredTietoryhma = tietoryhma.filter(tr => {
-            return completeTietolaji.map(tl => tl.tietoryhmatunnus).includes(tr.tunnus);
-        });
-
+        const tietolajiIds = tietolajiValues.map(tl => tl.value);
+        const tietoryhmaIds = tietolaji.filter(tl => tietolajiIds.includes(tl.tunnus)).map(tl => tl.tietoryhmatunnus);
+        const filteredTietoryhma = tietoryhma.filter(tr => tietoryhmaIds.includes(tr.tunnus));
         return this.mapToFormFormat(filteredTietoryhma);
     }
 
@@ -113,9 +128,14 @@ class TietovirtaFormWrapper extends React.Component {
         let jarjestelmaTunnus;
         if (edit && formApi) {
             jarjestelmaTunnus = formApi.values["jarjestelma"];
-    
         }
-        
+        const relatedJarjestelmaTunnus = formApi.values["liittyvaJarjestelma"];
+        const tietolajiOptions = this.getTietolajiOptions(s.looginen, s.tietolaji, 
+            jarjestelmaTunnus, relatedJarjestelmaTunnus, resources ? resources["jarjestelma"] : {});
+        const tietolajiFormStateValues = formApi.values["tietolajit"] || [];
+        const tietolajiValues = this.getTietolajiValues(tietolajiFormStateValues, tietolajiOptions);
+        const tietoryhmaOptions = this.getTietoryhmaData(tietolajiValues, s.tietolaji, s.tietoryhma);
+
         return (
             <div>
                 <div className="form-group row">
@@ -133,6 +153,26 @@ class TietovirtaFormWrapper extends React.Component {
                                     className="tk-field form-control"
                                     noResultsText="Ei tuloksia"
                                     useID={true}
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-sm-6">
+                        <div className="col-sm-12">
+                            <label htmlFor="liittyvaJarjestelma" className="row">
+                                Liittyvä järjestelmä
+                            </label>
+                            <div className="row">
+                                <CustomMultiselect
+                                    field="liittyvaJarjestelma"
+                                    id="liittyvaJarjestelma"
+                                    readOnly={!edit}
+                                    resources={resources}
+                                    className="tk-field form-control"
+                                    noResultsText="Ei tuloksia"
+                                    useID={true}
+                                    resourceName="jarjestelma"
                                 />
                             </div>
                         </div>
@@ -155,14 +195,8 @@ class TietovirtaFormWrapper extends React.Component {
                                     className="tk-field form-control"
                                     noResultsText="Ei tuloksia"
                                     clearable={false}
-                                    options={
-                                        this.getTietolajiOptions(s.looginen, s.tietolaji, 
-                                            jarjestelmaTunnus)
-                                    }
-                                    values={
-                                        this.getTietolajiValues(s.looginen, s.tietolaji,
-                                            jarjestelmaTunnus)
-                                    }
+                                    options={tietolajiOptions}
+                                    values={tietolajiValues}
                                 />
                             </div>
                         </div>
@@ -180,13 +214,7 @@ class TietovirtaFormWrapper extends React.Component {
                                     className="tk-field form-control"
                                     noResultsText="Ei tuloksia"
                                     clearable={false}
-                                    data={
-                                        this.getTietoryhmaData(
-                                            s.looginen,
-                                            s.tietolaji,
-                                            s.tietoryhma,
-                                            jarjestelmaTunnus)
-                                    }
+                                    data={tietoryhmaOptions}
                                     edit={edit}
                                 />
                             </div>

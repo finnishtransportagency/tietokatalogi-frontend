@@ -6,7 +6,9 @@ import { lowerWithoutScandics } from "../utils";
 import { observer } from "mobx-react";
 
 
-
+/**
+ * Displays jarjestelma link list
+ */
 @observer
 export class LinkList extends React.Component {
 
@@ -32,12 +34,8 @@ export class LinkList extends React.Component {
         this.props.formApi.setValue(mainListField, changedValues);
     }
 
-
-
     render() {
-
         const { edit, resources, field, formApi: { values = {} } } = this.props;
-
         const links = values[field] || [];
 
         const addButtonEl = edit ? (
@@ -52,7 +50,8 @@ export class LinkList extends React.Component {
                         suunta: null,
                         tietojarjestelmapalveluTunnus: null,
                         tietovirta: "",
-                        tyyppi: null
+                        tyyppi: null,
+                        elinkaaritila: "Tuotannossa"
                     };
                     this.props.formApi.addValue(field, newItem);
                 }}
@@ -65,101 +64,123 @@ export class LinkList extends React.Component {
         return (
             <div>
                 <div className="form-group row">
-                    <div className="col-sm-2">
-                        <label>Tyyppi</label>
-                    </div>
-                    <div className="col-sm-3">
-                        <label>Linkattava</label>
-                    </div>
-                    <div className="col-sm-2">
-                        <label>Suunta</label>
-                    </div>
-                    <div className="col-sm-2">
-                        <label>Tietojärjestelmäpalvelu</label>
-                    </div>
-                    <div className="col-sm-3">
-                        <label>Tietovirta</label>
+                    <div className={edit ? "col-sm-11" : "col-sm-12"}>
+                        <div className="col-sm-2">
+                            <label>Tyyppi</label>
+                        </div>
+                        <div className="col-sm-2">
+                            <label>Linkattava</label>
+                        </div>
+                        <div className="col-sm-2">
+                            <label>Suunta</label>
+                        </div>
+                        <div className="col-sm-2">
+                            <label>Tietojärjestelmäpalvelu</label>
+                        </div>
+                        <div className="col-sm-2">
+                            <label>Tietovirta</label>
+                        </div>
+                        <div className="col-sm-2">
+                            <label>Elinkaaritila</label>
+                        </div>
                     </div>
                 </div>
                 {links.map((link, i) => {
                     return (
                         <div className="form-group row" key={`link-${i}`}>
-                            <div className="col-sm-2">
-                                <Select
-                                    field={[field, i, "tyyppi"]}
-                                    type="text"
-                                    className="tk-field form-control"
-                                    id={`tyyppi_${i}`}
-                                    placeholder=""
-                                    readOnly={!edit}
-                                    clearable={false}
-                                    resources={resources}
-                                    noResultsText="Ei tuloksia"
-                                    onChange={selection => this.onDropdownChange(field, i, "tyyppi", selection, [
-                                        "linkattavaTunnus", "suunta", "tietojarjestelmapalveluTunnus", "tietovirta"
-                                    ])}
-                                />
-                            </div>
-                            <div className="col-sm-3">
-                                <Select
-                                    field={[field, i, "linkattavaTunnus"]}
-                                    type="text"
-                                    className="tk-field form-control"
-                                    id={`linkattavaTunnus_${i}`}
-                                    placeholder=""
-                                    readOnly={!edit}
-                                    clearable={false}
-                                    resources={resources}
-                                    resourceField={lowerWithoutScandics(
-                                        link["tyyppi"]
-                                    )}
-                                    useID={true}
-                                    noResultsText="Ei tuloksia"
-                                    onChange={selection => this.onDropdownChange(field, i, "linkattavaTunnus", selection, [
-                                        "suunta", "tietojarjestelmapalveluTunnus", "tietovirta"
-                                    ])}
-                                />
-                            </div>
-                            <div className="col-sm-2">
-                                <Select
-                                    field={[field, i, "suunta"]}
-                                    type="text"
-                                    className="tk-field form-control"
-                                    id={`suunta_${i}`}
-                                    placeholder=""
-                                    readOnly={!edit}
-                                    clearable={false}
-                                    resources={resources}
-                                    noResultsText="Ei tuloksia"
-                                    onChange={selection => this.onDropdownChange(field, i, "suunta", selection, [])}
-                                />
-                            </div>
-                            <div className="col-sm-2">
-                                <TietojarjestelmapalveluSelectWrapper
-                                    field={[field, i, "tietojarjestelmapalveluTunnus"]}
-                                    type="text"
-                                    className="tk-field form-control"
-                                    id={`tietojarjestelmapalvelu_${i}`}
-                                    placeholder=""
-                                    readOnly={!edit}
-                                    useID={false}
-                                    tietojarjestelmapalveluRowData={this.props.formApi.values[field][i]}
-                                    onChange={selection => this.onDropdownChange(field, i, "tietojarjestelmapalveluTunnus", selection, [
-                                        "tietovirta"
-                                    ])}
-                                />
-                            </div>
-                            <div className={edit ? "col-sm-2" : "col-sm-3"}>
-                                <TietovirtaSelectFieldWrapper
-                                    field={[field, i, "tietovirta"]}
-                                    type="text"
-                                    className="tk-field form-control tk-field-autoheight"
-                                    id={`tietovirta_${i}`}
-                                    placeholder=""
-                                    readOnly={!edit}
-                                    useID={false}
-                                    tietovirtaRowData={this.props.formApi.values[field][i]}
-                                />
+                            <div className={edit ? "col-sm-11" : "col-sm-12"}>
+                                <div className="col-sm-2">
+                                    <Select
+                                        field={[field, i, "tyyppi"]}
+                                        type="text"
+                                        className="tk-field form-control"
+                                        id={`tyyppi_${i}`}
+                                        placeholder=""
+                                        readOnly={!edit}
+                                        clearable={false}
+                                        resources={resources}
+                                        noResultsText="Ei tuloksia"
+                                        onChange={selection => this.onDropdownChange(field, i, "tyyppi", selection, [
+                                            "linkattavaTunnus", "suunta", "tietojarjestelmapalveluTunnus", "tietovirta"
+                                        ])}
+                                    />
+                                </div>
+                                <div className="col-sm-2">
+                                    <Select
+                                        field={[field, i, "linkattavaTunnus"]}
+                                        type="text"
+                                        className="tk-field form-control"
+                                        id={`linkattavaTunnus_${i}`}
+                                        placeholder=""
+                                        readOnly={!edit}
+                                        clearable={false}
+                                        resources={resources}
+                                        resourceField={lowerWithoutScandics(
+                                            link["tyyppi"]
+                                        )}
+                                        useID={true}
+                                        noResultsText="Ei tuloksia"
+                                        onChange={selection => this.onDropdownChange(field, i, "linkattavaTunnus", selection, [
+                                            "suunta", "tietojarjestelmapalveluTunnus", "tietovirta"
+                                        ])}
+                                    />
+                                </div>
+                                <div className="col-sm-2">
+                                    <Select
+                                        field={[field, i, "suunta"]}
+                                        type="text"
+                                        className="tk-field form-control"
+                                        id={`suunta_${i}`}
+                                        placeholder=""
+                                        readOnly={!edit}
+                                        clearable={false}
+                                        resources={resources}
+                                        noResultsText="Ei tuloksia"
+                                        onChange={selection => this.onDropdownChange(field, i, "suunta", selection, [])}
+                                    />
+                                </div>
+                                <div className="col-sm-2">
+                                    <TietojarjestelmapalveluSelectWrapper
+                                        field={[field, i, "tietojarjestelmapalveluTunnus"]}
+                                        type="text"
+                                        className="tk-field form-control"
+                                        id={`tietojarjestelmapalvelu_${i}`}
+                                        placeholder=""
+                                        readOnly={!edit}
+                                        useID={false}
+                                        tietojarjestelmapalveluRowData={this.props.formApi.values[field][i]}
+                                        onChange={selection => this.onDropdownChange(field, i, "tietojarjestelmapalveluTunnus", selection, [
+                                            "tietovirta"
+                                        ])}
+                                    />
+                                </div>
+                                <div className="col-sm-2">
+                                    <TietovirtaSelectFieldWrapper
+                                        field={[field, i, "tietovirta"]}
+                                        type="text"
+                                        className="tk-field form-control tk-field-autoheight"
+                                        id={`tietovirta_${i}`}
+                                        placeholder=""
+                                        readOnly={!edit}
+                                        useID={false}
+                                        tietovirtaRowData={this.props.formApi.values[field][i]}
+                                    />
+                                </div>
+                                <div className="col-sm-2">
+                                    <Select
+                                        field={[field, i, "elinkaaritila"]}
+                                        type="text"
+                                        className="tk-field form-control"
+                                        id={`elinkaaritila_${i}`}
+                                        placeholder=""
+                                        readOnly={!edit}
+                                        useID={false}
+                                        resources={resources}
+                                        clearable={false}
+                                        deleteRemoves={false}
+                                        backspaceRemoves={false}
+                                    />
+                                </div>
                             </div>
                             {edit && (
                                 <div className="col-sm-1">

@@ -69,6 +69,11 @@ const icons = {
         label: "Sanasto",
         path: iconData.box,
         fill: red
+    },
+    related_jarjestelma: {
+        label: "Liittyvä järjestelmä",
+        path: iconData.book,
+        fill: blue,
     }
 };
 
@@ -81,7 +86,7 @@ function getIconList(Category) {
         icons.fyysinen
     ];
 
-    const jarjestelma = [icons.jarjestelma];
+    const jarjestelma = [icons.jarjestelma, icons.related_jarjestelma];
     const sovellus = [icons.sovellus];
 
     const toimintaprosessi = [
@@ -99,7 +104,7 @@ function getIconList(Category) {
 
     const sanasto = [
         icons.sanasto,
-    ]
+    ];
 
     switch (Category) {
         case Categories.TIETOARKKITEHTUURI:

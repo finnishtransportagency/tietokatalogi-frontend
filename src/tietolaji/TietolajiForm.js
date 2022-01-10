@@ -1,256 +1,161 @@
 import React from "react";
-import { Form, Text } from "react-form";
-import { FormControls, validate, validateAll } from "../form/FormControls";
+import { Formik, Form, Field } from "formik";
+import { FormControls, formikValidateName } from "../form/FormControls";
 import { CustomCollapse as Collapse } from "../form/CustomCollapse";
-import { CustomSelect as Select } from "../form/CustomSelect";
-import { LinkifyTextArea as TextArea } from "../form/LinkifyTextArea";
+import { FormikText as CustomText } from "../form/formik/FormikText";
+import { FormikTextArea as CustomTextArea } from "../form/formik/FormikTextArea";
+import { FormikCustomSelect } from "../form/formik/FormikSelect";
 import { fullURL } from "../App";
 
-export class TietolajiForm extends React.Component {
-    render() {
-        const {
-            edit,
-            onSubmit,
-            remove,
-            setEditable,
-            cancelNew,
-            values,
-            resources
-        } = this.props;
+export const TietolajiForm = ({
+    edit,
+    onSubmit,
+    remove,
+    setEditable,
+    cancelNew,
+    values: initialValues,
+    resources
+}) => {
+    const {
+        tietoryhma: tietoryhmatunnusLista = [],
+        looginen: looginenTietovarantoTunnusLista = []
+    } = resources ? resources : {};
 
-        const {
-            tietoryhma: tietoryhmatunnusLista = [],
-            looginen: looginenTietovarantoTunnusLista = []
-        } = resources ? resources : {};
-
-        const linkToTR = values.tietoryhmatunnus
-            ? fullURL("#/tietoryhma/tunnus", values.tietoryhmatunnus)
-            : null;
-        let linkToTREl = null;
-        if (linkToTR) {
-            linkToTREl = (
-                <span>
-                    <a
-                        href={linkToTR}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        placeholder=""
-                        readOnly={true}
-                    >
-                        {" "}
-                        Linkki
-                    </a>
-                </span>
-            );
-        }
-
-        const linkToLog = values.looginenTietovarantoTunnus
-            ? fullURL("#/looginen/tunnus", values.looginenTietovarantoTunnus)
-            : null;
-        let linkToLogEl = null;
-        if (linkToLog) {
-            linkToLogEl = (
-                <span>
-                    <a
-                        href={linkToLog}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        placeholder=""
-                        readOnly={true}
-                    >
-                        {" "}
-                        Linkki
-                    </a>
-                </span>
-            );
-        }
-
-        return (
-            <Form
-                validateError={values => 
-                    validateAll(values, validate)
-                }
-                onSubmit={values => {
-                    delete values.noRightsToModify;
-                    onSubmit(values);
-                }}
-                getApi={formApi => {
-                    formApi.setAllValues(values);
-                }}
-                defaultValues={values}
-            >
-                {formApi => (
-                    <form onSubmit={formApi.submitForm}>
-                        <Collapse
-                            header={`Kaikki tiedot: ${values.nimi || ""}`}
-                            isOpened={true}
-                        >
-                            <div className="form-group row">
-                                <div className="col-sm-6">
-                                    <div className="col-sm-12">
-                                        <label htmlFor="nimi" className="row">
-                                            Nimi
-                                        </label>
-                                        <div className="row">
-                                            <Text
-                                                field="nimi"
-                                                type="text"
-                                                className="tk-field form-control"
-                                                id="nimi"
-                                                placeholder=""
-                                                readOnly={!edit}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-sm-6">
-                                    <div className="col-sm-12">
-                                        <label htmlFor="kuvaus" className="row">
-                                            Kuvaus
-                                        </label>
-                                        <div className="row">
-                                            <TextArea
-                                                field="kuvaus"
-                                                type="text"
-                                                className="tk-field form-control"
-                                                id="kuvaus"
-                                                rows="5"
-                                                placeholder=""
-                                                readOnly={!edit}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="form-group row">
-                                <div className="col-sm-6">
-                                    <div className="col-sm-12">
-                                        <label
-                                            htmlFor="omistaja"
-                                            className="row"
-                                        >
-                                            Omistaja
-                                        </label>
-                                        <div className="row">
-                                            <Text
-                                                field="omistaja"
-                                                type="text"
-                                                className="tk-field form-control"
-                                                id="omistaja"
-                                                placeholder=""
-                                                readOnly={!edit}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-sm-6">
-                                    <div className="col-sm-12">
-                                        <label htmlFor="lahde" className="row">
-                                            Lähde
-                                        </label>
-                                        <div className="row">
-                                            <Text
-                                                field="lahde"
-                                                type="text"
-                                                className="tk-field form-control"
-                                                id="lahde"
-                                                placeholder=""
-                                                readOnly={!edit}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="form-group row">
-                                <div className="col-sm-6">
-                                    <div className="col-sm-12">
-                                        <label htmlFor="tila" className="row">
-                                            Tila
-                                        </label>
-                                        <div className="row">
-                                            <Select
-                                                field="tila"
-                                                type="text"
-                                                className="tk-field form-control"
-                                                id="tila"
-                                                placeholder=""
-                                                readOnly={!edit}
-                                                resources={resources}
-                                                noResultsText="Ei tuloksia"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="form-group row">
-                                <div className="col-sm-6">
-                                    <div className="col-sm-12">
-                                        <label
-                                            htmlFor="tietoryhmatunnus"
-                                            className="row"
-                                        >
-                                            Tietoryhmä{linkToTREl}
-                                        </label>
-                                        <div className="row">
-                                            <Select
-                                                field="tietoryhmatunnus"
-                                                className="tk-field form-control"
-                                                id="tietoryhmatunnus"
-                                                placeholder=""
-                                                readOnly={!edit}
-                                                useID={true}
-                                                resources={{
-                                                    tietoryhmatunnus: tietoryhmatunnusLista
-                                                }}
-                                                noResultsText="Ei tuloksia"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-sm-6">
-                                    <div className="col-sm-12">
-                                        <label
-                                            htmlFor="looginenTietovarantoTunnus"
-                                            className="row"
-                                        >
-                                            Looginen tietovaranto{linkToLogEl}
-                                        </label>
-                                        <div className="row">
-                                            <Select
-                                                field="looginenTietovarantoTunnus"
-                                                className="tk-field form-control"
-                                                id="looginenTietovarantoTunnus"
-                                                placeholder=""
-                                                readOnly={!edit}
-                                                useID={true}
-                                                resources={{
-                                                    looginenTietovarantoTunnus: looginenTietovarantoTunnusLista
-                                                }}
-                                                noResultsText="Ei tuloksia"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </Collapse>
-
-                        <FormControls
-                            noRightsToModify={values.noRightsToModify}
-                            edit={edit}
-                            values={formApi.values}
-                            errors={formApi.errors}
-                            setEditable={setEditable}
-                            submitForm={formApi.submitForm}
-                            resetForm={formApi.resetAll}
-                            cancelNew={cancelNew}
-                            remove={remove}
-                        />
-                    </form>
-                )}
-            </Form>
+    const linkToTR = initialValues.tietoryhmatunnus
+        ? fullURL("#/tietoryhma/tunnus", initialValues.tietoryhmatunnus)
+        : null;
+    let linkToTREl = null;
+    if (linkToTR) {
+        linkToTREl = (
+            <span>
+                <a
+                    href={linkToTR}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    placeholder=""
+                    readOnly={true}
+                >
+                    {" "}
+                    Linkki
+                </a>
+            </span>
         );
     }
-}
+    const tietoryhmaLabel = <React.Fragment>Tietoryhmä{linkToTREl}</React.Fragment>;
+
+    const linkToLog = initialValues.looginenTietovarantoTunnus
+        ? fullURL("#/looginen/tunnus", initialValues.looginenTietovarantoTunnus)
+        : null;
+    let linkToLogEl = null;
+    if (linkToLog) {
+        linkToLogEl = (
+            <span>
+                <a
+                    href={linkToLog}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    placeholder=""
+                    readOnly={true}
+                >
+                    {" "}
+                    Linkki
+                </a>
+            </span>
+        );
+    }
+    const looginenLabel = <React.Fragment>Looginen tietovaranto{linkToLogEl}</React.Fragment>;
+
+    return (
+        <Formik
+            initialValues={{
+                nimi: "",
+                kuvaus: "",
+                omistaja: "",
+                lahde: "",
+                tila: "",
+                tietoryhmatunnus: "",
+                looginenTietovarantoTunnus: "",
+                ...initialValues
+            }}
+            validate={formikValidateName}
+            onSubmit={onSubmit}
+        >
+            <Form>
+                <Collapse
+                    header={`Kaikki tiedot: ${initialValues.nimi || ""}`}
+                    isOpened={true}
+                >
+                    <div className="form-group row">
+                        <div className="col-sm-6">
+                            <CustomText name="nimi" label="Nimi" readOnly={!edit} />
+                        </div>
+                        <div className="col-sm-6">
+                            <CustomTextArea name="kuvaus" label="Kuvaus" readOnly={!edit} />
+                        </div>
+                    </div>
+
+                    <div className="form-group row">
+                        <div className="col-sm-6">
+                            <CustomText name="omistaja" label="Omistaja" readOnly={!edit} />
+                        </div>
+                        <div className="col-sm-6">
+                            <CustomText name="lahde" label="Lähde" readOnly={!edit} />
+
+                        </div>
+                    </div>
+
+                    <div className="form-group row">
+                        <div className="col-sm-6">
+                            <FormikCustomSelect
+                                name="tila"
+                                label="Tila"
+                                readOnly={!edit}
+                                resources={resources}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="form-group row">
+                        <div className="col-sm-6">
+                            <FormikCustomSelect
+                                name="tietoryhmatunnus"
+                                label={tietoryhmaLabel}
+                                readOnly={!edit}
+                                resources={{ tietoryhmatunnus: tietoryhmatunnusLista }}
+                                useID
+                            />
+                        </div>
+                        <div className="col-sm-6">
+                            <FormikCustomSelect
+                                name="looginenTietovarantoTunnus"
+                                label={looginenLabel}
+                                readOnly={!edit}
+                                resources={{
+                                    looginenTietovarantoTunnus: looginenTietovarantoTunnusLista
+                                }}
+                                useID
+                            />
+                        </div>
+                    </div>
+                </Collapse>
+
+                <Field name="formControls">
+                    {({ form }) => (
+                        <FormControls
+                            noRightsToModify={initialValues.noRightsToModify}
+                            edit={edit}
+                            values={form.values}
+                            errors={form.errors}
+                            setEditable={setEditable}
+                            submitForm={form.submitForm}
+                            resetForm={form.handleReset}
+                            cancelNew={cancelNew}
+                            remove={remove}
+                            formikValidation
+                        />
+                    )}
+                </Field>
+            </Form>
+        </Formik>
+    );
+};

@@ -172,8 +172,9 @@ class Graph extends Component {
         }
 
         const getTooltipData = function(d) {
+            const contentPath = d.content === "related_jarjestelma" ? "jarjestelma" : d.content;
             axios
-                .get(`${fullRestURL()}/${d.content}/${d.code}`)
+                .get(`${fullRestURL()}/${contentPath}/${d.code}`)
                 .then(response => {
                     let outData = {};
                     if (response.data === "") {
@@ -186,7 +187,7 @@ class Graph extends Component {
                     } else {
                         outData = response.data;
                         tooltipContent.html(
-                            renderTooltipContent(outData, d.content)
+                            renderTooltipContent(outData, contentPath)
                         );
                     }
                 })
@@ -196,7 +197,7 @@ class Graph extends Component {
                     outData.tunnus = d.code;
                     outData.nimi = d.name;
                     tooltipContent.html(
-                        renderTooltipContent(outData, d.content)
+                        renderTooltipContent(outData, contentPath)
                     );
                 });
         };

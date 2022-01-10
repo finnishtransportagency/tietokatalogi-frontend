@@ -23,11 +23,11 @@ export function getKeyForJarjestelmaLink(tietovirtaObject) {
         suunta: s,
         tietojarjestelmapalveluTunnus: tjpt
     } = tietovirtaObject;
-    return `${t}|${lt}|${s}|${tjpt}|${tjt}`;
+    return `${t}|${lt}|${s}|${tjpt || ""}|${tjt}`;
 }
 
 export function getKeyForLinkTvPair(linkKey, tietovirta) {
-    return `${linkKey}|${tietovirta}`;
+    return `${linkKey}|${tietovirta || ""}`;
 }
 
 

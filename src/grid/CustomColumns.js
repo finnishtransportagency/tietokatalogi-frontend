@@ -26,4 +26,6 @@ const EnhanceWithRowData = connect((state, props) => ({
 export const LinkToItemWithLinkKey = (linkKey) => EnhanceWithRowData(CustomLink(linkKey));
 
 export const LinkToItem = EnhanceWithRowData(CustomLink("nimi"));
+// Termilomake uses ensisijainen termi instead of nimi
+export const LinkToItemTermilomake = EnhanceWithRowData(CustomLink("nimi"));
 export const ActiveStatus = EnhanceWithRowData(CustomStatus);

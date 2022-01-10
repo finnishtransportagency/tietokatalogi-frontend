@@ -5,8 +5,8 @@ import { getFieldOptions } from "./SelectHelpers";
 
 class CustomMultiselectInner extends React.Component {
     render () {
-        const { resources, fieldApi, useID, readOnly } = this.props;
-        const fieldOptions = getFieldOptions(resources, fieldApi.getFieldName(), useID);
+        const { resources, fieldApi, useID, readOnly, resourceName } = this.props;
+        const fieldOptions = getFieldOptions(resources, resourceName || fieldApi.getFieldName(), useID);
 
         return (
             <Select

@@ -41,7 +41,8 @@ class CustomSelectWrapper extends React.Component {
         
         return this.getTietolajiMatchingTietojarjestelmatunnus(
             tietojarjestelmapalvelu, tietojarjestelmapalveluTunnus)
-            .map(tietolaji => ({ value: tietolaji.tunnus, label: tietolaji.nimi }))
+            .map(({ tunnus, nimi, liittyvaJarjestelmaNimi }) => ({ value: tunnus, 
+                label: liittyvaJarjestelmaNimi ? `${nimi} (${liittyvaJarjestelmaNimi})` : nimi }))
             .sort((a, b) => a.label.localeCompare(b.label));
     }
 

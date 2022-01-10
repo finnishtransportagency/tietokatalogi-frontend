@@ -967,77 +967,6 @@ export class JarjestelmaForm extends HenkiloRooli {
                                 <div className="col-sm-6">
                                     <div className="col-sm-12">
                                         <label
-                                            htmlFor="jarjestelman_tarkeys_liville"
-                                            className="row"
-                                        >
-                                            Järjestelmän tärkeys
-                                            Väylävirastolle
-                                        </label>
-                                        <div className="row">
-                                            <Select
-                                                field="jarjestelman_tarkeys_liville"
-                                                type="text"
-                                                className="tk-field form-control"
-                                                id="jarjestelman_tarkeys_liville"
-                                                placeholder=""
-                                                readOnly={!edit}
-                                                resources={resources}
-                                                noResultsText="Ei tuloksia"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-sm-6">
-                                    <div className="col-sm-12">
-                                        <label
-                                            htmlFor="jarj_tarkeys_yhteistyokump"
-                                            className="row"
-                                        >
-                                            Järjestelmän tärkeys
-                                            yhteistyökumppaneille
-                                        </label>
-                                        <div className="row">
-                                            <Select
-                                                field="jarj_tarkeys_yhteistyokump"
-                                                type="text"
-                                                className="tk-field form-control"
-                                                id="jarj_tarkeys_yhteistyokump"
-                                                placeholder=""
-                                                readOnly={!edit}
-                                                resources={resources}
-                                                noResultsText="Ei tuloksia"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="form-group row">
-                                <div className="col-sm-6">
-                                    <div className="col-sm-12">
-                                        <label
-                                            htmlFor="jarj_tarkeys_yk"
-                                            className="row"
-                                        >
-                                            Järjestelmän tärkeys yhteiskunnalle
-                                        </label>
-                                        <div className="row">
-                                            <Select
-                                                field="jarj_tarkeys_yk"
-                                                type="text"
-                                                className="tk-field form-control"
-                                                id="jarj_tarkeys_yk"
-                                                placeholder=""
-                                                readOnly={!edit}
-                                                resources={resources}
-                                                noResultsText="Ei tuloksia"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-sm-6">
-                                    <div className="col-sm-12">
-                                        <label
                                             htmlFor="luokituksen_tarkastuspvm"
                                             className="row"
                                         >
@@ -1055,9 +984,6 @@ export class JarjestelmaForm extends HenkiloRooli {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div className="form-group row">
                                 <div className="col-sm-6">
                                     <div className="col-sm-12">
                                         <label
@@ -1079,6 +1005,9 @@ export class JarjestelmaForm extends HenkiloRooli {
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div className="form-group row">
                                 <div className="col-sm-6">
                                     <div className="col-sm-12">
                                         <label
@@ -1100,9 +1029,6 @@ export class JarjestelmaForm extends HenkiloRooli {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div className="form-group row">
                                 <div className="col-sm-6">
                                     <div className="col-sm-12">
                                         <label
@@ -1122,6 +1048,9 @@ export class JarjestelmaForm extends HenkiloRooli {
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div className="form-group row">
                                 <div className="col-sm-6">
                                     <div className="col-sm-12">
                                         <label
@@ -1144,9 +1073,6 @@ export class JarjestelmaForm extends HenkiloRooli {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div className="form-group row">
                                 <div className="col-sm-6">
                                     <div className="col-sm-12">
                                         <label
@@ -1167,6 +1093,9 @@ export class JarjestelmaForm extends HenkiloRooli {
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div className="form-group row">
                                 <div className="col-sm-6">
                                     <div className="col-sm-12">
                                         <label
@@ -1189,103 +1118,6 @@ export class JarjestelmaForm extends HenkiloRooli {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div className="form-group row">
-                                <div className="col-sm-6">
-                                    <div className="col-sm-12">
-                                        <label
-                                            htmlFor="tarkeinta"
-                                            className="row"
-                                        >
-                                            Tärkeintä on
-                                        </label>
-                                        <div className="row">
-                                            <Select
-                                                field="tarkeinta"
-                                                type="text"
-                                                className="tk-field form-control"
-                                                id="tarkeinta"
-                                                placeholder=""
-                                                readOnly={!edit}
-                                                resources={resources}
-                                                noResultsText="Ei tuloksia"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-sm-6">
-                                    <div className="col-sm-12">
-                                        <label
-                                            htmlFor="tiedonluottamuksellisuus"
-                                            className="row"
-                                        >
-                                            Tiedonluottamuksellisuuden arvo
-                                        </label>
-                                        <div className="row">
-                                            <Select
-                                                field="tiedonluottamuksellisuus"
-                                                type="text"
-                                                className="tk-field form-control"
-                                                id="tiedonluottamuksellisuus"
-                                                placeholder=""
-                                                readOnly={!edit}
-                                                resources={resources}
-                                                noResultsText="Ei tuloksia"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="form-group row">
-                                <div className="col-sm-6">
-                                    <div className="col-sm-12">
-                                        <label
-                                            htmlFor="tiedon_saatavuus"
-                                            className="row"
-                                        >
-                                            Tiedon saatavuus
-                                        </label>
-                                        <div className="row">
-                                            <Select
-                                                field="tiedon_saatavuus"
-                                                type="text"
-                                                className="tk-field form-control"
-                                                id="tiedon_saatavuus"
-                                                placeholder=""
-                                                readOnly={!edit}
-                                                resources={resources}
-                                                noResultsText="Ei tuloksia"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-sm-6">
-                                    <div className="col-sm-12">
-                                        <label
-                                            htmlFor="tiedon_eheys"
-                                            className="row"
-                                        >
-                                            Tiedon eheys
-                                        </label>
-                                        <div className="row">
-                                            <Select
-                                                field="tiedon_eheys"
-                                                type="text"
-                                                className="tk-field form-control"
-                                                id="tiedon_eheys"
-                                                placeholder=""
-                                                readOnly={!edit}
-                                                resources={resources}
-                                                noResultsText="Ei tuloksia"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="form-group row">
                                 <div className="col-sm-6">
                                     <div className="col-sm-12">
                                         <label
@@ -1327,6 +1159,9 @@ export class JarjestelmaForm extends HenkiloRooli {
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div className="form-group row">
                                 <div className="col-sm-6">
                                     <div className="col-sm-12">
                                         <label
@@ -1341,50 +1176,6 @@ export class JarjestelmaForm extends HenkiloRooli {
                                                 className="tk-field form-control"
                                                 readOnly={!edit}
                                                 field="tarvitaan_audit_trail"
-                                            >
-                                                {group => (
-                                                    <div className="row">
-                                                        <div className="col-xs-6 col-md-6 col-lg-2">
-                                                            <Radio
-                                                                group={group}
-                                                                value={"kylla"}
-                                                                disabled={!edit}
-                                                            />&nbsp;<span>
-                                                                Kyllä
-                                                            </span>
-                                                        </div>
-                                                        <div className="col-xs-6 col-md-6 col-lg-2">
-                                                            <Radio
-                                                                group={group}
-                                                                value={"ei"}
-                                                                disabled={!edit}
-                                                            />&nbsp;<span>
-                                                                Ei
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                )}
-                                            </RadioGroup>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="form-group row">
-                                <div className="col-sm-6">
-                                    <div className="col-sm-12">
-                                        <label
-                                            htmlFor="integraatioita_muihin"
-                                            className="row"
-                                        >
-                                            Onko integraatioita muihin järjestelmiin
-                                        </label>
-                                        <div className="row">
-                                            <RadioGroup
-                                                id="integraatioita_muihin"
-                                                className="tk-field form-control"
-                                                readOnly={!edit}
-                                                field="integraatioita_muihin"
                                             >
                                                 {group => (
                                                     <div className="row">
@@ -1434,6 +1225,7 @@ export class JarjestelmaForm extends HenkiloRooli {
                                     </div>
                                 </div>
                             </div>
+
                         </Collapse>
 
 

@@ -111,6 +111,14 @@ function notEmptyNumber(number) {
     return number !== undefined && number !== null;
 }
 
+export const formikValidateName = values => {
+    if (!notEmpty(values.nimi))
+        return ({
+            nimi: "Nimi vaaditaan"
+        });
+    return {};
+};
+
 export class FormControls extends Component {
     //TODO: refactor so that FormControls does not need values. Done in dynamic form
     constructor(props) {
@@ -192,15 +200,17 @@ export class FormControls extends Component {
             setEditable,
             children,
             inline = false,
-            noRightsToModify = []
+            noRightsToModify = [],
+            formikValidation = false,
         } = this.props;
 
+        const isFormikErrors = Object.values(errors).length > 0;
         const isNoModificationRights = noRightsToModify.includes("ALL_FIELDS");
 
         const disabled = {
-            save: errors.hasErrors,
+            save: errors.hasErrors || (formikValidation && isFormikErrors),
             remove: false,
-            create: errors.hasErrors || isNoModificationRights,
+            create: errors.hasErrors || isNoModificationRights || (formikValidation && isFormikErrors),
             cancel: false,
             edit: isNoModificationRights
         };

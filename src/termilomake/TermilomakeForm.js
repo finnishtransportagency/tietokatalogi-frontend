@@ -1,12 +1,16 @@
 import React from "react";
 import { Form, StyledText, Text, Radio, RadioGroup } from "react-form";
+import Select from "react-select";
 
 import { CustomCollapse } from "../form/CustomCollapse";
 import { FormControls, validate, validateAll } from "../form/FormControls";
 import { CustomMultiselect } from "../form/CustomMultiselect";
+import { CustomResourceSelect } from "../form/CustomResourceSelect";
+import { LinkifyTextArea as TextArea } from "../form/LinkifyTextArea";
 
 
 export class TermilomakeForm extends React.Component {
+
 
     render() {
         const {
@@ -18,6 +22,7 @@ export class TermilomakeForm extends React.Component {
             cancelNew,
             remove
         } = this.props;
+
 
         return (
             <Form
@@ -48,10 +53,10 @@ export class TermilomakeForm extends React.Component {
                                             htmlFor="nimi"
                                             className="row"
                                         >
-                                            Käsitteen tunnus
+                                            Ensisijainen termi
                                         </label>
                                         <div className="row">
-                                            <StyledText
+                                            <Text
                                                 field="nimi"
                                                 type="text"
                                                 className="tk-field form-control"
@@ -62,254 +67,6 @@ export class TermilomakeForm extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-sm-6">
-                                    <div className="col-sm-12">
-                                        <label
-                                            htmlFor="ensisij_termi"
-                                            className="row"
-                                        >
-                                            Ensisijainen termi
-                                        </label>
-                                        <div className="row">
-                                            <Text
-                                                field="ensisij_termi"
-                                                type="text"
-                                                className="tk-field form-control"
-                                                id="ensisij_termi"
-                                                placeholder=""
-                                                readOnly={!edit}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="form-group row">
-                                <div className="col-sm-6">
-                                    <div className="col-sm-12">
-                                        <label htmlFor="synonyymit" className="row">
-                                            Synonyymi(t)
-                                        </label>
-                                        <div className="row">
-                                            <Text
-                                                field="synonyymit"
-                                                type="text"
-                                                className="tk-field form-control"
-                                                id="synonyymit"
-                                                placeholder=""
-                                                readOnly={!edit}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="col-sm-6">
-                                    <div className="col-sm-12">
-                                        <label htmlFor="ei_suosit_termi" className="row">
-                                            Termi, jonka käyttöä ei suositella
-                                        </label>
-                                        <div className="row">
-                                            <Text
-                                                field="ei_suosit_termi"
-                                                type="text"
-                                                className="tk-field form-control"
-                                                id="ei_suosit_termi"
-                                                placeholder=""
-                                                readOnly={!edit}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="form-group row">
-                                <div className="col-sm-6">
-                                    <div className="col-sm-12">
-                                        <label
-                                            htmlFor="kayttoaluerajaus"
-                                            className="row"
-                                        >
-                                             Määritelmän käyttöaluerajaus
-                                        </label>
-                                        <div className="row">
-                                            <Text
-                                                field="kayttoaluerajaus"
-                                                type="text"
-                                                className="tk-field form-control"
-                                                id="kayttoaluerajaus"
-                                                placeholder=""
-                                                readOnly={!edit}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-sm-6">
-                                    <div className="col-sm-12">
-                                        <label
-                                            htmlFor="assosiatiiv_kasite"
-                                            className="row"
-                                        >
-                                            Käsite, johon on assosiatiivinen suhde
-                                        </label>
-                                        <div className="row">
-                                            <CustomMultiselect
-                                                field="assosiatiiv_kasite"
-                                                type="text"
-                                                className="tk-field form-control"
-                                                id="assosiatiiv_kasite"
-                                                placeholder=""
-                                                readOnly={!edit}
-                                                resources={resources}
-                                                noResultsText="Ei tuloksia"
-                                                clearable={true}
-                                                resetValue="reset"
-                                                useID={true}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="form-group row">
-                                <div className="col-sm-6">
-                                    <div className="col-sm-12">
-                                        <label
-                                            htmlFor="koostumussuht_ylakasite"
-                                            className="row"
-                                        >
-                                             Koostumussuhteinen yläkäsite
-                                        </label>
-                                        <div className="row">
-                                            <CustomMultiselect
-                                                field="koostumussuht_ylakasite"
-                                                type="text"
-                                                className="tk-field form-control"
-                                                id="koostumussuht_ylakasite"
-                                                placeholder=""
-                                                readOnly={!edit}
-                                                resources={resources}
-                                                noResultsText="Ei tuloksia"
-                                                clearable={true}
-                                                resetValue="reset"
-                                                useID={true}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-sm-6">
-                                    <div className="col-sm-12">
-                                        <label
-                                            htmlFor="hierarkk_ylakasite"
-                                            className="row"
-                                        >
-                                            Hierarkkinen yläkäsite
-                                        </label>
-                                        <div className="row">
-                                            <CustomMultiselect
-                                                field="hierarkk_ylakasite"
-                                                type="text"
-                                                className="tk-field form-control"
-                                                id="hierarkk_ylakasite"
-                                                placeholder=""
-                                                readOnly={!edit}
-                                                resources={resources}
-                                                noResultsText="Ei tuloksia"
-                                                clearable={true}
-                                                resetValue="reset"
-                                                useID={true}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="form-group row">
-                                <div className="col-sm-6">
-                                    <div className="col-sm-12">
-                                        <label
-                                            htmlFor="maaritelma"
-                                            className="row"
-                                        >
-                                             Määritelmä
-                                        </label>
-                                        <div className="row">
-                                            <Text
-                                                field="maaritelma"
-                                                type="text"
-                                                className="tk-field form-control"
-                                                id="maaritelma"
-                                                placeholder=""
-                                                readOnly={!edit}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-sm-6">
-                                    <div className="col-sm-12">
-                                        <label
-                                            htmlFor="huomautus_1"
-                                            className="row"
-                                        >
-                                            1. huomautus
-                                        </label>
-                                        <div className="row">
-                                            <Text
-                                                field="huomautus_1"
-                                                type="text"
-                                                className="tk-field form-control"
-                                                id="huomautus_1"
-                                                placeholder=""
-                                                readOnly={!edit}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="form-group row">
-                                <div className="col-sm-6">
-                                    <div className="col-sm-12">
-                                        <label
-                                            htmlFor="huomautus_2"
-                                            className="row"
-                                        >
-                                             2. huomautus
-                                        </label>
-                                        <div className="row">
-                                            <Text
-                                                field="huomautus_2"
-                                                type="text"
-                                                className="tk-field form-control"
-                                                id="huomautus_2"
-                                                placeholder=""
-                                                readOnly={!edit}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-sm-6">
-                                    <div className="col-sm-12">
-                                        <label
-                                            htmlFor="kommentit"
-                                            className="row"
-                                        >
-                                            Kommentteja jatkokäsittelyä varten
-                                        </label>
-                                        <div className="row">
-                                            <Text
-                                                field="kommentit"
-                                                type="text"
-                                                className="tk-field form-control"
-                                                id="kommentit"
-                                                placeholder=""
-                                                readOnly={!edit}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="form-group row">
                                 <div className="col-sm-6">
                                     <div className="col-sm-12">
                                         <label
@@ -351,20 +108,239 @@ export class TermilomakeForm extends React.Component {
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div className="form-group row">
                                 <div className="col-sm-6">
                                     <div className="col-sm-12">
                                         <label
-                                            htmlFor="lahde"
+                                            htmlFor="maaritelma"
                                             className="row"
                                         >
-                                            Lähde / master
+                                             Määritelmä
+                                        </label>
+                                        <div className="row">
+                                            <TextArea
+                                                field="maaritelma"
+                                                type="text"
+                                                className="tk-field form-control"
+                                                id="maaritelma"
+                                                placeholder=""
+                                                readOnly={!edit}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-sm-6">
+                                    <div className="col-sm-12">
+                                        <label
+                                            htmlFor="kayttoaluerajaus"
+                                            className="row"
+                                        >
+                                             Määritelmän käyttöaluerajaus
                                         </label>
                                         <div className="row">
                                             <Text
-                                                field="lahde"
+                                                field="kayttoaluerajaus"
                                                 type="text"
                                                 className="tk-field form-control"
-                                                id="lahde"
+                                                id="kayttoaluerajaus"
+                                                placeholder=""
+                                                readOnly={!edit}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="form-group row">
+
+                                <div className="col-sm-6">
+                                    <div className="col-sm-12">
+                                        <label
+                                            htmlFor="huomautusList"
+                                            className="row"
+                                            >
+                                            Huomautukset
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="huomautusList">
+                                {formApi.values.huomautusList && formApi.values.huomautusList.map((huomautus, i) => (
+                                    <div className="form-group row" key={`huomautus-${i}`}>
+                                        <div className="col-sm-6">
+                                            <TextArea
+                                                field={["huomautusList", i]}
+                                                type="text"
+                                                className="tk-field form-control"
+                                                id={`huomautus-${i}`}
+                                                placeholder=""
+                                                readOnly={!edit}
+                                            />
+                                        </div>
+
+                                        <div className="col-sm-6">
+                                            <button
+                                                type="button"
+                                                className="btn btn-primary"
+                                                onClick={() => formApi.removeValue("huomautusList", i)}
+                                                disabled={!edit}
+                                            >
+                                                Poista huomautus
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
+
+                                {edit && (
+                                    <div className="form-group row">
+                                        <div className="col-sm-12">
+                                            <button
+                                                type="button"
+                                                className="btn btn-primary"
+                                                onClick={() => formApi.addValue("huomautusList", "")}
+                                                disabled={!edit}
+                                            >
+                                                Lisää huomautus
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+
+
+                            </div>
+
+                            <div className="form-group row">
+                                <div className="col-sm-6">
+                                    <div className="col-sm-12">
+                                        <label htmlFor="synonyymit" className="row">
+                                            Synonyymi(t)
+                                        </label>
+                                        <div className="row">
+                                            <Text
+                                                field="synonyymit"
+                                                type="text"
+                                                className="tk-field form-control"
+                                                id="synonyymit"
+                                                placeholder=""
+                                                readOnly={!edit}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-sm-6">
+                                    <div className="col-sm-12">
+                                        <label htmlFor="ei_suosit_termi" className="row">
+                                            Termi, jonka käyttöä ei suositella
+                                        </label>
+                                        <div className="row">
+                                            <Text
+                                                field="ei_suosit_termi"
+                                                type="text"
+                                                className="tk-field form-control"
+                                                id="ei_suosit_termi"
+                                                placeholder=""
+                                                readOnly={!edit}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="col-sm-6">
+                                    <div className="col-sm-12">
+                                        <label
+                                            htmlFor="hierarkk_ylakasite"
+                                            className="row"
+                                        >
+                                            Hierarkkinen yläkäsite
+                                        </label>
+                                        <div className="row">
+                                            <CustomMultiselect
+                                                field="hierarkk_ylakasite"
+                                                type="text"
+                                                className="tk-field form-control"
+                                                id="hierarkk_ylakasite"
+                                                placeholder=""
+                                                readOnly={!edit}
+                                                resources={resources}
+                                                noResultsText="Ei tuloksia"
+                                                clearable={true}
+                                                resetValue="reset"
+                                                useID={true}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-sm-6">
+                                    <div className="col-sm-12">
+                                        <label
+                                            htmlFor="koostumussuht_ylakasite"
+                                            className="row"
+                                        >
+                                             Koostumussuhteinen yläkäsite
+                                        </label>
+                                        <div className="row">
+                                            <CustomMultiselect
+                                                field="koostumussuht_ylakasite"
+                                                type="text"
+                                                className="tk-field form-control"
+                                                id="koostumussuht_ylakasite"
+                                                placeholder=""
+                                                readOnly={!edit}
+                                                resources={resources}
+                                                noResultsText="Ei tuloksia"
+                                                clearable={true}
+                                                resetValue="reset"
+                                                useID={true}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div className="form-group row">
+                                <div className="col-sm-6">
+                                    <div className="col-sm-12">
+                                        <label
+                                            htmlFor="assosiatiiv_kasite"
+                                            className="row"
+                                        >
+                                            Käsite, johon on assosiatiivinen suhde
+                                        </label>
+                                        <div className="row">
+                                            <CustomMultiselect
+                                                field="assosiatiiv_kasite"
+                                                type="text"
+                                                className="tk-field form-control"
+                                                id="assosiatiiv_kasite"
+                                                placeholder=""
+                                                readOnly={!edit}
+                                                resources={resources}
+                                                noResultsText="Ei tuloksia"
+                                                clearable={true}
+                                                resetValue="reset"
+                                                useID={true}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-sm-6">
+                                    <div className="col-sm-12">
+                                        <label
+                                            htmlFor="hakutermit"
+                                            className="row"
+                                        >
+                                             Hakutermit
+                                        </label>
+                                        <div className="row">
+                                            <Text
+                                                field="hakutermit"
+                                                type="text"
+                                                className="tk-field form-control"
+                                                id="hakutermit"
                                                 placeholder=""
                                                 readOnly={!edit}
                                             />
@@ -377,19 +353,19 @@ export class TermilomakeForm extends React.Component {
                                 <div className="col-sm-6">
                                     <div className="col-sm-12">
                                         <label
-                                            htmlFor="omistaja"
+                                            htmlFor="tunnus"
                                             className="row"
                                         >
-                                             Omistaja
+                                        Käsitteen tunnus
                                         </label>
                                         <div className="row">
-                                            <Text
-                                                field="omistaja"
+                                            <StyledText
+                                                field="tunnus"
                                                 type="text"
                                                 className="tk-field form-control"
-                                                id="omistaja"
+                                                id="tunnus"
                                                 placeholder=""
-                                                readOnly={!edit}
+                                                readOnly={true}
                                             />
                                         </div>
                                     </div>
@@ -441,17 +417,57 @@ export class TermilomakeForm extends React.Component {
                                 <div className="col-sm-6">
                                     <div className="col-sm-12">
                                         <label
-                                            htmlFor="hakutermit"
+                                            htmlFor="omistaja"
                                             className="row"
                                         >
-                                             Hakutermit
+                                             Omistaja
                                         </label>
                                         <div className="row">
                                             <Text
-                                                field="hakutermit"
+                                                field="omistaja"
                                                 type="text"
                                                 className="tk-field form-control"
-                                                id="hakutermit"
+                                                id="omistaja"
+                                                placeholder=""
+                                                readOnly={!edit}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-sm-6">
+                                    <div className="col-sm-12">
+                                        <label
+                                            htmlFor="lahde"
+                                            className="row"
+                                        >
+                                            Lähde / master
+                                        </label>
+                                        <div className="row">
+                                            <Text
+                                                field="lahde"
+                                                type="text"
+                                                className="tk-field form-control"
+                                                id="lahde"
+                                                placeholder=""
+                                                readOnly={!edit}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-sm-6">
+                                    <div className="col-sm-12">
+                                        <label
+                                            htmlFor="kommentit"
+                                            className="row"
+                                        >
+                                            Kommentteja jatkokäsittelyä varten
+                                        </label>
+                                        <div className="row">
+                                            <Text
+                                                field="kommentit"
+                                                type="text"
+                                                className="tk-field form-control"
+                                                id="kommentit"
                                                 placeholder=""
                                                 readOnly={!edit}
                                             />
@@ -460,6 +476,7 @@ export class TermilomakeForm extends React.Component {
                                 </div>
 
                             </div>
+
 
                         </CustomCollapse>
 

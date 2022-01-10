@@ -93,11 +93,21 @@ class Tietojarjestelmapalvelu extends React.Component {
     render() {
         // viewing existing entity
         if (this.tietojarjestelmapalvelu) {
+            const formFormatValues = {
+                ...toJS(this.tietojarjestelmapalvelu),
+                tietolajit: this.tietojarjestelmapalvelu.tietolajit &&
+                    this.tietojarjestelmapalvelu.tietolajit.map(({
+                        tunnus, nimi, liittyvaJarjestelmaTunnus, liittyvaJarjestelmaNimi
+                    }) => ({
+                        value: tunnus, label: liittyvaJarjestelmaNimi ? `${nimi} (${liittyvaJarjestelmaNimi})` : nimi,
+                        liittyvaJarjestelmaTunnus,
+                    })),
+            };
             return (
                 <div>
                     <TietojarjestelmapalveluForm
                         edit={this.state.edit}
-                        values={toJS(this.tietojarjestelmapalvelu)}
+                        values={toJS(formFormatValues)}
                         setEditable={editable => this.setEditable(editable)}
                         resources={this.props.tietojarjestelmapalveluStore.resources}
                         remove={tunnus => {

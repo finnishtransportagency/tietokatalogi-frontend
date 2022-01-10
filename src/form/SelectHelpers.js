@@ -7,6 +7,7 @@ const getResourcesWithName = (resources, resourceName) => {
 export const getFieldOptions = (resources, resourceName, useID = false) => {
     const fieldResources = getResourcesWithName(resources, resourceName);
     return Object.entries(fieldResources)
-        .map(([k, v]) => ({value: useID ? k : v, label: v}))
+        // fallback to empty string label since testing data may have missing labels
+        .map(([k, v]) => ({value: useID ? k : v, label: v || ""}))
         .sort((a, b) => a.label.localeCompare(b.label));
 };

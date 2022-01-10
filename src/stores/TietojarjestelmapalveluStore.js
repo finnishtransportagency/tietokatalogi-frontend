@@ -37,6 +37,23 @@ export class TietojarjestelmapalveluStore extends BaseStore {
                 console.log(error);
             });
     }
+
+    @action
+    fetchDetails(tunnus) {
+        this.storeDetails({});
+        return axios
+            .get(`${this.url}/${tunnus}`)
+            .then(response => {
+                this.details = Object.entries(response.data).reduce((acc, [k, v]) => ({
+                    ...acc,
+                    [k === "relatedJarjestelmaIds" ? "liittyvaJarjestelma" : k]: v
+                }), []);
+                return response;
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+    }
 }
 
 const tietojarjestelmapalveluStore = new TietojarjestelmapalveluStore();

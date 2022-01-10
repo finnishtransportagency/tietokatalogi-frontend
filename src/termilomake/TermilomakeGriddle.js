@@ -2,7 +2,7 @@ import React from "react";
 import CustomGriddle from "../grid/CustomGriddle";
 import { RowDefinition, ColumnDefinition } from "griddle-react";
 import { TermilomakeFilter } from "../termilomake/TermilomakeFilter";
-import { LinkToItem } from "../grid/CustomColumns";
+import { LinkToItemTermilomake } from "../grid/CustomColumns";
 
 export default class TermilomakeGriddle extends React.Component {
     render() {
@@ -18,13 +18,10 @@ export default class TermilomakeGriddle extends React.Component {
                     <ColumnDefinition
                         id="nimi"
                         itemUrl={itemUrl}
-                        customComponent={LinkToItem}
+                        customComponent={LinkToItemTermilomake}
                         customHeadingComponent={() => null}
                     />
-                    <ColumnDefinition
-                        id="kuvaus"
-                        customHeadingComponent={() => null}
-                    />
+
                 </RowDefinition>
             </CustomGriddle>
         );
