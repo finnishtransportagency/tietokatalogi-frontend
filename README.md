@@ -4,11 +4,25 @@
 * Git - http://git-scm.com/
 
 ## Frontend
-The frontend project is located in `src/main/app`. Run the following commands inside that directory.
+### With docker
+Build the container with
+```
+docker build -t tietokatalogi-frontend .
+```
+Run the container with
+```
+docker-compose up
+```
+When finished, run (from another terminal)
+```
+docker-compose down
+```
+
+### Without docker
+TODO: how to change package.json -> proxy config? Currently it's configured to work inside the container only.
 
 Install
 ```
-cd src/main/app
 npm install
 ```
 
@@ -25,8 +39,6 @@ Build frontend
 ```
 npm run build
 ```
-
-NOTE: Build frontend every time before maven build when frontend-project has changed.
 
 ### Testing
 Tests are configured to work with Jest.
