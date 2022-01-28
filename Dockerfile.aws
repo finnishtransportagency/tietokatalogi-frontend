@@ -11,5 +11,7 @@ RUN npm install react-scripts --silent
 
 COPY . /usr/src/app
 
+ENV DANGEROUSLY_DISABLE_HOST_CHECK=true
+
 CMD ["npm", "run", "start"]
 EXPOSE 3000
