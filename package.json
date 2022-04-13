@@ -121,6 +121,9 @@
   "proxy": {
     "/tietokatalogi/rest": {
       "target": "http://internal-tieto-Priva-1ET7Y80D53A7F-315895179.eu-west-1.elb.amazonaws.com:8080"
+    },
+    "/tietokatalogi/external": {
+      "target": "http://internal-tieto-Priva-1ET7Y80D53A7F-315895179.eu-west-1.elb.amazonaws.com:8080"
     }
   }
 }
