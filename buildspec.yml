@@ -12,7 +12,6 @@ phases:
     commands:
       - echo Build started on `date`
       - npm run build
-      - sed -i 's/!accountid!/'${ACCOUNT_ID}'/' ./Dockerfile.aws
       - docker build -f Dockerfile.aws -t $ECR_REPOSITORY_NAME:latest .
   post_build:
     commands:

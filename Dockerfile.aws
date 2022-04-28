@@ -1,4 +1,4 @@
-FROM !accountid!.dkr.ecr.eu-west-1.amazonaws.com/node:12-alpine
+FROM 894932018761.dkr.ecr.eu-west-1.amazonaws.com/node:12-alpine
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
