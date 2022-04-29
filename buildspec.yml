@@ -11,6 +11,8 @@ phases:
   build:
     commands:
       - echo Build started on `date`
+      - |-
+        sed -i 's|\"target\": \".*:8080"|\"target\": \"'${PROXY_URL}':8080\"|' ./package.json
       - npm run build
       - docker build -f Dockerfile.aws -t $ECR_REPOSITORY_NAME:latest .
   post_build:

@@ -120,10 +120,10 @@
   "homepage": ".",
   "proxy": {
     "/tietokatalogi/rest": {
-      "target": "http://internal-tieto-Priva-15JT2HQU1B5TM-1095822012.eu-west-1.elb.amazonaws.com:8080"
+      "target": "http://tomcat:8080"
     },
     "/tietokatalogi/external": {
-      "target": "http://internal-tieto-Priva-15JT2HQU1B5TM-1095822012.eu-west-1.elb.amazonaws.com:8080"
+      "target": "http://tomcat:8080"
     }
   }
 }
