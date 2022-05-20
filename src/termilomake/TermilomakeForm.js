@@ -1,17 +1,12 @@
 import React from "react";
 import { Form, StyledText, Text, Radio, RadioGroup } from "react-form";
-import Select from "react-select";
 
 import { CustomCollapse } from "../form/CustomCollapse";
 import { FormControls, validate, validateAll } from "../form/FormControls";
 import { CustomMultiselect } from "../form/CustomMultiselect";
-import { CustomResourceSelect } from "../form/CustomResourceSelect";
 import { LinkifyTextArea as TextArea } from "../form/LinkifyTextArea";
 
-
 export class TermilomakeForm extends React.Component {
-
-
     render() {
         const {
             edit,
@@ -20,27 +15,26 @@ export class TermilomakeForm extends React.Component {
             resources,
             onSubmit,
             cancelNew,
-            remove
+            remove,
         } = this.props;
-
 
         return (
             <Form
-                getApi={formApi => {
+                getApi={(formApi) => {
                     formApi.setAllValues(values);
                 }}
-                validateError={values => {
+                validateError={(values) => {
                     return {
-                        ...validateAll(values, validate)
+                        ...validateAll(values, validate),
                     };
                 }}
-                onSubmit={values => {
+                onSubmit={(values) => {
                     delete values.noRightsToModify;
                     onSubmit(values);
                 }}
                 defaultValues={values}
             >
-                { formApi => (
+                {(formApi) => (
                     <form onSubmit={formApi.submitForm}>
                         <CustomCollapse
                             header={`Kaikki tiedot: ${values.nimi || ""}`}
@@ -49,10 +43,7 @@ export class TermilomakeForm extends React.Component {
                             <div className="form-group row">
                                 <div className="col-sm-6">
                                     <div className="col-sm-12">
-                                        <label
-                                            htmlFor="nimi"
-                                            className="row"
-                                        >
+                                        <label htmlFor="nimi" className="row">
                                             Ensisijainen termi
                                         </label>
                                         <div className="row">
@@ -69,11 +60,8 @@ export class TermilomakeForm extends React.Component {
                                 </div>
                                 <div className="col-sm-6">
                                     <div className="col-sm-12">
-                                        <label
-                                            htmlFor="valmis"
-                                            className="row"
-                                        >
-                                             Valmis / luonnos
+                                        <label htmlFor="valmis" className="row">
+                                            Valmis / luonnos
                                         </label>
                                         <div className="row">
                                             <RadioGroup
@@ -82,25 +70,25 @@ export class TermilomakeForm extends React.Component {
                                                 readOnly={!edit}
                                                 field="valmis"
                                             >
-                                                {group => (
+                                                {(group) => (
                                                     <div className="row">
                                                         <div className="col-xs-6 col-md-6 col-lg-2">
                                                             <Radio
                                                                 group={group}
                                                                 value={"true"}
                                                                 disabled={!edit}
-                                                            />&nbsp;<span>
-                                                                Valmis
-                                                            </span>
+                                                            />
+                                                            &nbsp;
+                                                            <span>Valmis</span>
                                                         </div>
                                                         <div className="col-xs-6 col-md-6 col-lg-2">
                                                             <Radio
                                                                 group={group}
                                                                 value={"false"}
                                                                 disabled={!edit}
-                                                            />&nbsp;<span>
-                                                                Luonnos
-                                                            </span>
+                                                            />
+                                                            &nbsp;
+                                                            <span>Luonnos</span>
                                                         </div>
                                                     </div>
                                                 )}
@@ -117,7 +105,7 @@ export class TermilomakeForm extends React.Component {
                                             htmlFor="maaritelma"
                                             className="row"
                                         >
-                                             Määritelmä
+                                            Määritelmä
                                         </label>
                                         <div className="row">
                                             <TextArea
@@ -137,7 +125,7 @@ export class TermilomakeForm extends React.Component {
                                             htmlFor="kayttoaluerajaus"
                                             className="row"
                                         >
-                                             Määritelmän käyttöaluerajaus
+                                            Määritelmän käyttöaluerajaus
                                         </label>
                                         <div className="row">
                                             <Text
@@ -154,13 +142,12 @@ export class TermilomakeForm extends React.Component {
                             </div>
 
                             <div className="form-group row">
-
                                 <div className="col-sm-6">
                                     <div className="col-sm-12">
                                         <label
                                             htmlFor="huomautusList"
                                             className="row"
-                                            >
+                                        >
                                             Huomautukset
                                         </label>
                                     </div>
@@ -168,31 +155,45 @@ export class TermilomakeForm extends React.Component {
                             </div>
 
                             <div id="huomautusList">
-                                {formApi.values.huomautusList && formApi.values.huomautusList.map((huomautus, i) => (
-                                    <div className="form-group row" key={`huomautus-${i}`}>
-                                        <div className="col-sm-6">
-                                            <TextArea
-                                                field={["huomautusList", i]}
-                                                type="text"
-                                                className="tk-field form-control"
-                                                id={`huomautus-${i}`}
-                                                placeholder=""
-                                                readOnly={!edit}
-                                            />
-                                        </div>
-
-                                        <div className="col-sm-6">
-                                            <button
-                                                type="button"
-                                                className="btn btn-primary"
-                                                onClick={() => formApi.removeValue("huomautusList", i)}
-                                                disabled={!edit}
+                                {formApi.values.huomautusList &&
+                                    formApi.values.huomautusList.map(
+                                        (huomautus, i) => (
+                                            <div
+                                                className="form-group row"
+                                                key={`huomautus-${i}`}
                                             >
-                                                Poista huomautus
-                                            </button>
-                                        </div>
-                                    </div>
-                                ))}
+                                                <div className="col-sm-6">
+                                                    <TextArea
+                                                        field={[
+                                                            "huomautusList",
+                                                            i,
+                                                        ]}
+                                                        type="text"
+                                                        className="tk-field form-control"
+                                                        id={`huomautus-${i}`}
+                                                        placeholder=""
+                                                        readOnly={!edit}
+                                                    />
+                                                </div>
+
+                                                <div className="col-sm-6">
+                                                    <button
+                                                        type="button"
+                                                        className="btn btn-primary"
+                                                        onClick={() =>
+                                                            formApi.removeValue(
+                                                                "huomautusList",
+                                                                i
+                                                            )
+                                                        }
+                                                        disabled={!edit}
+                                                    >
+                                                        Poista huomautus
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        )
+                                    )}
 
                                 {edit && (
                                     <div className="form-group row">
@@ -200,7 +201,12 @@ export class TermilomakeForm extends React.Component {
                                             <button
                                                 type="button"
                                                 className="btn btn-primary"
-                                                onClick={() => formApi.addValue("huomautusList", "")}
+                                                onClick={() =>
+                                                    formApi.addValue(
+                                                        "huomautusList",
+                                                        ""
+                                                    )
+                                                }
                                                 disabled={!edit}
                                             >
                                                 Lisää huomautus
@@ -208,14 +214,15 @@ export class TermilomakeForm extends React.Component {
                                         </div>
                                     </div>
                                 )}
-
-
                             </div>
 
                             <div className="form-group row">
                                 <div className="col-sm-6">
                                     <div className="col-sm-12">
-                                        <label htmlFor="synonyymit" className="row">
+                                        <label
+                                            htmlFor="synonyymit"
+                                            className="row"
+                                        >
                                             Synonyymi(t)
                                         </label>
                                         <div className="row">
@@ -232,7 +239,10 @@ export class TermilomakeForm extends React.Component {
                                 </div>
                                 <div className="col-sm-6">
                                     <div className="col-sm-12">
-                                        <label htmlFor="ei_suosit_termi" className="row">
+                                        <label
+                                            htmlFor="ei_suosit_termi"
+                                            className="row"
+                                        >
                                             Termi, jonka käyttöä ei suositella
                                         </label>
                                         <div className="row">
@@ -279,7 +289,7 @@ export class TermilomakeForm extends React.Component {
                                             htmlFor="koostumussuht_ylakasite"
                                             className="row"
                                         >
-                                             Koostumussuhteinen yläkäsite
+                                            Koostumussuhteinen yläkäsite
                                         </label>
                                         <div className="row">
                                             <CustomMultiselect
@@ -298,7 +308,6 @@ export class TermilomakeForm extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
 
                             <div className="form-group row">
@@ -308,7 +317,8 @@ export class TermilomakeForm extends React.Component {
                                             htmlFor="assosiatiiv_kasite"
                                             className="row"
                                         >
-                                            Käsite, johon on assosiatiivinen suhde
+                                            Käsite, johon on assosiatiivinen
+                                            suhde
                                         </label>
                                         <div className="row">
                                             <CustomMultiselect
@@ -333,7 +343,7 @@ export class TermilomakeForm extends React.Component {
                                             htmlFor="hakutermit"
                                             className="row"
                                         >
-                                             Hakutermit
+                                            Hakutermit
                                         </label>
                                         <div className="row">
                                             <Text
@@ -353,19 +363,19 @@ export class TermilomakeForm extends React.Component {
                                 <div className="col-sm-6">
                                     <div className="col-sm-12">
                                         <label
-                                            htmlFor="tunnus"
+                                            htmlFor="muokattava_tunnus"
                                             className="row"
                                         >
-                                        Käsitteen tunnus
+                                            Käsitteen tunnus
                                         </label>
                                         <div className="row">
                                             <StyledText
-                                                field="tunnus"
+                                                field="muokattava_tunnus"
                                                 type="text"
                                                 className="tk-field form-control"
-                                                id="tunnus"
+                                                id="muokattava_tunnus"
                                                 placeholder=""
-                                                readOnly={true}
+                                                readOnly={!edit}
                                             />
                                         </div>
                                     </div>
@@ -385,25 +395,25 @@ export class TermilomakeForm extends React.Component {
                                                 readOnly={!edit}
                                                 field="ydinkasite"
                                             >
-                                                {group => (
+                                                {(group) => (
                                                     <div className="row">
                                                         <div className="col-xs-6 col-md-6 col-lg-2">
                                                             <Radio
                                                                 group={group}
                                                                 value={"true"}
                                                                 disabled={!edit}
-                                                            />&nbsp;<span>
-                                                                Kyllä
-                                                            </span>
+                                                            />
+                                                            &nbsp;
+                                                            <span>Kyllä</span>
                                                         </div>
                                                         <div className="col-xs-6 col-md-6 col-lg-2">
                                                             <Radio
                                                                 group={group}
                                                                 value={"false"}
                                                                 disabled={!edit}
-                                                            />&nbsp;<span>
-                                                                Ei
-                                                            </span>
+                                                            />
+                                                            &nbsp;
+                                                            <span>Ei</span>
                                                         </div>
                                                     </div>
                                                 )}
@@ -420,7 +430,7 @@ export class TermilomakeForm extends React.Component {
                                             htmlFor="omistaja"
                                             className="row"
                                         >
-                                             Omistaja
+                                            Omistaja
                                         </label>
                                         <div className="row">
                                             <Text
@@ -436,10 +446,7 @@ export class TermilomakeForm extends React.Component {
                                 </div>
                                 <div className="col-sm-6">
                                     <div className="col-sm-12">
-                                        <label
-                                            htmlFor="lahde"
-                                            className="row"
-                                        >
+                                        <label htmlFor="lahde" className="row">
                                             Lähde / master
                                         </label>
                                         <div className="row">
@@ -454,6 +461,9 @@ export class TermilomakeForm extends React.Component {
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div className="form-group row">
                                 <div className="col-sm-6">
                                     <div className="col-sm-12">
                                         <label
@@ -474,10 +484,167 @@ export class TermilomakeForm extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-
+                                <div className="col-sm-6">
+                                    <div className="col-sm-12">
+                                        <label
+                                            htmlFor="kasitekaavio_linkki"
+                                            className="row"
+                                        >
+                                            Käsitekaavio (linkki)
+                                        </label>
+                                        {edit ? (
+                                            <React.Fragment>
+                                                <div
+                                                    className="row"
+                                                    style={{
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                        marginBottom: "0.5em",
+                                                    }}
+                                                >
+                                                    <small
+                                                        style={{ width: "8em" }}
+                                                    >
+                                                        Linkin osoite
+                                                    </small>
+                                                    <TextArea
+                                                        field="kasitekaavio_linkki"
+                                                        type="text"
+                                                        className="tk-field form-control"
+                                                        id="kasitekaavio_linkki"
+                                                        placeholder=""
+                                                        readOnly={!edit}
+                                                        rows="1"
+                                                    />
+                                                </div>
+                                                <div
+                                                    className="row"
+                                                    style={{
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                    }}
+                                                >
+                                                    <small
+                                                        style={{ width: "8em" }}
+                                                    >
+                                                        Linkin teksti
+                                                    </small>
+                                                    <TextArea
+                                                        field="kasitekaavio_linkki_nimi"
+                                                        type="text"
+                                                        className="tk-field form-control"
+                                                        id="kasitekaavio_linkki_nimi"
+                                                        placeholder=""
+                                                        readOnly={!edit}
+                                                        rows="1"
+                                                    />
+                                                </div>
+                                            </React.Fragment>
+                                        ) : (
+                                            <div className="row">
+                                                <a
+                                                    className="tk-field form-control"
+                                                    readOnly
+                                                    href={
+                                                        formApi.values[
+                                                            "kasitekaavio_linkki"
+                                                        ]
+                                                    }
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    {
+                                                        formApi.values[
+                                                            "kasitekaavio_linkki_nimi"
+                                                        ]
+                                                    }
+                                                </a>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
                             </div>
-
-
+                            <div className="form-group row">
+                                <div className="col-sm-6">
+                                    <div className="col-sm-12">
+                                        <label
+                                            htmlFor="pdf_linkki"
+                                            className="row"
+                                        >
+                                            Sanasto Pdf-muodossa (linkki)
+                                        </label>
+                                        {edit ? (
+                                            <React.Fragment>
+                                                <div
+                                                    className="row"
+                                                    style={{
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                        marginBottom: "0.5em",
+                                                    }}
+                                                >
+                                                    <small
+                                                        style={{ width: "8em" }}
+                                                    >
+                                                        Linkin osoite
+                                                    </small>
+                                                    <TextArea
+                                                        field="pdf_linkki"
+                                                        type="text"
+                                                        className="tk-field form-control"
+                                                        id="pdf_linkki"
+                                                        placeholder=""
+                                                        readOnly={!edit}
+                                                        rows="1"
+                                                    />
+                                                </div>
+                                                <div
+                                                    className="row"
+                                                    style={{
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                    }}
+                                                >
+                                                    <small
+                                                        style={{ width: "8em" }}
+                                                    >
+                                                        Linkin teksti
+                                                    </small>
+                                                    <TextArea
+                                                        field="pdf_linkki_nimi"
+                                                        type="text"
+                                                        className="tk-field form-control"
+                                                        id="pdf_linkki_nimi"
+                                                        placeholder=""
+                                                        readOnly={!edit}
+                                                        rows="1"
+                                                    />
+                                                </div>
+                                            </React.Fragment>
+                                        ) : (
+                                            <div className="row">
+                                                <a
+                                                    className="tk-field form-control"
+                                                    readOnly
+                                                    href={
+                                                        formApi.values[
+                                                            "pdf_linkki"
+                                                        ]
+                                                    }
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    {
+                                                        formApi.values[
+                                                            "pdf_linkki_nimi"
+                                                        ]
+                                                    }
+                                                </a>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
                         </CustomCollapse>
 
                         <FormControls
@@ -492,9 +659,7 @@ export class TermilomakeForm extends React.Component {
                             remove={remove}
                         />
                     </form>
-
                 )}
-
             </Form>
         );
     }
