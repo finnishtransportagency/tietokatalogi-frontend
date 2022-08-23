@@ -1,5 +1,6 @@
 import React from "react";
-import { ContactsView } from "./ContactsView";
+import { EditableMainPageView } from './EditableMainPageView';
+
 
 const MainView = () => {
     const versionNumber = process.env.REACT_APP_VERSION_HASH || null;
@@ -10,7 +11,9 @@ const MainView = () => {
         <div>
             <h1>Tietokatalogi</h1>
             {versionEl}
-            <ContactsView />
+            <div className="col-xs-8"><EditableMainPageView /></div>
+            <div className="col-xs-1" />
+            <div className="col-xs-3"><EditableMainPageView /></div>
         </div>
     );
 };
