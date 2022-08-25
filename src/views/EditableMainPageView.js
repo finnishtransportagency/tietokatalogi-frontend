@@ -10,15 +10,17 @@ export const EditableMainPageView = () => {
     const [markdown, setMarkdown] = React.useState("");
     const [edit, setEdit] = React.useState(false);
     const textareaRef = React.useRef(null);
-    const [easyMDE, setEasyMDE] = React.useState(null);
 
     React.useEffect(() => {
         const createdEasyMDE = new EasyMDE({
             element: textareaRef && textareaRef.current,
             spellChecker: false,
+            renderingConfig: {
+                sanitizerFunction: (html) => (
+                    DOMPurify.sanitize(html)
+                )
+            }
         });
-        setEasyMDE(createdEasyMDE);
-
         createdEasyMDE.codemirror.on("change", (e) => {
             setMarkdown(createdEasyMDE.value());
         })
