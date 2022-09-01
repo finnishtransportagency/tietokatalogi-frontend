@@ -4,7 +4,26 @@ import * as marked from 'marked';
 import * as DOMPurify from 'dompurify';
 import EasyMDE from 'easymde';
 import "easymde/dist/easymde.min.css";
+import axios from 'axios';
 
+
+
+// TODO: add proper addresses here
+const sendPost = (mainText) => {
+    axios.post('http://localhost:3000/tietokatalogi/rest/frontpage/', { mainText: mainText, sideText: 'bar' })
+    .then(response => {
+        console.log(response);
+    })
+    .catch(function(error) {
+        console.log("error", error);
+    });
+};
+
+const getTest = () => {
+    return axios.get('http://localhost:3000/tietokatalogi/rest/frontpage')
+    .then(response => response.data)
+    .catch(error => console.log(error));
+}
 
 export const EditableMainPageView = () => {
     const [markdown, setMarkdown] = React.useState("");
@@ -19,10 +38,18 @@ export const EditableMainPageView = () => {
                 sanitizerFunction: (html) => (
                     DOMPurify.sanitize(html)
                 )
-            }
+            },
+            autoRefresh: { delay: 300 }
         });
         createdEasyMDE.codemirror.on("change", (e) => {
             setMarkdown(createdEasyMDE.value());
+        })
+
+        // fetch and populate
+        getTest().then(data => {
+            console.log('received data:', data);
+            setMarkdown(data.mainText);
+            createdEasyMDE.value(data.mainText);
         })
     }, []);
 
@@ -38,7 +65,10 @@ export const EditableMainPageView = () => {
                     <button
                         type="button"
                         className="btn btn-primary"
-                        onClick={() => setEdit(false)} // TODO: save should happen here
+                        onClick={() => {
+                            setEdit(false);
+                            sendPost(markdown);
+                        }}
                     >
                         Tallenna
                     </button>
