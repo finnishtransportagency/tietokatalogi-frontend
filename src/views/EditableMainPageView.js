@@ -1,15 +1,18 @@
 import React from "react";
 
 import axios from "axios";
+
 import { EditableMainPageContent } from "../frontpage/EditableMainPageContent";
 import { EditableMainPageDisplay } from "../frontpage/EditableMainPageDisplay";
+import { fullRestURL } from "../App";
+
 
 // TODO: add proper addresses here
 const sendPost = ({mainText, sideText}) => {
   axios
-    .post("http://localhost:3000/tietokatalogi/rest/frontpage/", {
-      mainText: mainText,
-      sideText: "bar",
+    .post(`${fullRestURL()}/frontpage/`, {
+      mainText,
+      sideText,
     })
     .then((response) => {
       console.log(response);
@@ -21,7 +24,7 @@ const sendPost = ({mainText, sideText}) => {
 
 const getTest = () => {
   return axios
-    .get("http://localhost:3000/tietokatalogi/rest/frontpage")
+    .get(`${fullRestURL()}/frontpage`)
     .then((response) => response.data)
     .catch((error) => console.log(error));
 };
@@ -29,12 +32,13 @@ const getTest = () => {
 export const EditableMainPageView = () => {
   const [mainText, setMainText] = React.useState("");
   const [sideText, setSideText] = React.useState("");
-  // const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(true);
   const [edit, setEdit] = React.useState(false);
 
   React.useEffect(() => {
+    setLoading(true);
     getTest().then((data) => {
-      console.log("received data:", data);
+      setLoading(false);
       if (!data) return;
       const { mainText = "", sideText = "" } = data;
       setMainText(mainText);
@@ -42,7 +46,7 @@ export const EditableMainPageView = () => {
     });
   }, []);
 
-  return (
+  return loading ? <p>Ladataan...</p> : (
     <React.Fragment>
       <div className="col-xs-8">
         <div style={{ display: edit ? "inline" : "none" }}>
