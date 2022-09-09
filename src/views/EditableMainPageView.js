@@ -67,9 +67,9 @@ export const EditableMainPageView = () => {
         </div>
         {!edit && <EditableMainPageDisplay markdown={sideText} />}
       </div>
-      <div className="col-xs-12">
+      <div className="float-bottom">
         {edit ? (
-          <React.Fragment>
+          <div className="btn-toolbar">
             <button
               type="button"
               className="btn btn-primary"
@@ -87,7 +87,7 @@ export const EditableMainPageView = () => {
             >
               Peruuta
             </button>
-          </React.Fragment>
+          </div>
         ) : (
           <button
             type="button"

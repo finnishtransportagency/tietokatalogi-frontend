@@ -3,11 +3,11 @@ import React from "react";
 import * as marked from "marked";
 import * as DOMPurify from "dompurify";
 
-export const EditableMainPageDisplay = ({ markdown, onClk }) => {
+export const EditableMainPageDisplay = ({ markdown }) => {
   return (
     <React.Fragment>
       <div
-        style={{ backgroundColor: "ghostwhite" }}
+        className="frontpage-readonly-textarea"
         dangerouslySetInnerHTML={{
           __html: DOMPurify.sanitize(marked.parse(markdown)) || "(ei sisältöä)",
         }}
