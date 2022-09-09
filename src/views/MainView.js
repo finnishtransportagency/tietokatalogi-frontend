@@ -1,5 +1,5 @@
 import React from "react";
-import { EditableMainPageView } from './EditableMainPageView';
+import { EditableFrontPageContainer } from '../frontpage/EditableFrontPageContainer';
 
 
 const MainView = () => {
@@ -13,7 +13,7 @@ const MainView = () => {
         <div>
             <h1>Tietokatalogi</h1>
             {versionEl}
-            <EditableMainPageView />
+            <EditableFrontPageContainer />
         </div>
     );
 };

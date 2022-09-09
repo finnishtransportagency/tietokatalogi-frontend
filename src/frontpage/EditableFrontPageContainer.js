@@ -2,12 +2,12 @@ import React from "react";
 
 import axios from "axios";
 
-import { EditableMainPageContent } from "../frontpage/EditableMainPageContent";
-import { EditableMainPageDisplay } from "../frontpage/EditableMainPageDisplay";
+import { EditableFrontPageEditor } from "./EditableFrontPageEditor";
+import { EditableFrontPageDisplay } from "./EditableFrontPageDisplay";
 import { fullRestURL } from "../App";
 
 
-// TODO: add proper addresses here
+// TODO: move to better location
 const sendPost = ({mainText, sideText}) => {
   axios
     .post(`${fullRestURL()}/frontpage/`, {
@@ -29,7 +29,7 @@ const getTest = () => {
     .catch((error) => console.log(error));
 };
 
-export const EditableMainPageView = () => {
+export const EditableFrontPageContainer = () => {
   const [mainText, setMainText] = React.useState("");
   const [sideText, setSideText] = React.useState("");
   const [loading, setLoading] = React.useState(true);
@@ -50,22 +50,22 @@ export const EditableMainPageView = () => {
     <React.Fragment>
       <div className="col-xs-8">
         <div style={{ display: edit ? "inline" : "none" }}>
-          <EditableMainPageContent
+          <EditableFrontPageEditor
             onChange={(text) => setMainText(text)}
             value={mainText}
           />
         </div>
-        {!edit && <EditableMainPageDisplay markdown={mainText} />}
+        {!edit && <EditableFrontPageDisplay markdown={mainText} />}
       </div>
       <div className="col-xs-1" />
       <div className="col-xs-3">
         <div style={{ display: edit ? "inline" : "none" }}>
-          <EditableMainPageContent
+          <EditableFrontPageEditor
             onChange={(text) => setSideText(text)}
             value={sideText}
           />
         </div>
-        {!edit && <EditableMainPageDisplay markdown={sideText} />}
+        {!edit && <EditableFrontPageDisplay markdown={sideText} />}
       </div>
       <div className="float-bottom">
         {edit ? (

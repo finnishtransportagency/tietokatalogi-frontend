@@ -4,7 +4,7 @@ import * as DOMPurify from "dompurify";
 import EasyMDE from "easymde";
 import "easymde/dist/easymde.min.css";
 
-export const EditableMainPageContent = ({ value, onChange }) => {
+export const EditableFrontPageEditor = ({ value, onChange }) => {
   const textareaRef = React.useRef(null);
   const [editor, setEditor] = React.useState(null);
 

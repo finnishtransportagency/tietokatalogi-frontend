@@ -3,7 +3,7 @@ import React from "react";
 import * as marked from "marked";
 import * as DOMPurify from "dompurify";
 
-export const EditableMainPageDisplay = ({ markdown }) => {
+export const EditableFrontPageDisplay = ({ markdown }) => {
   return (
     <React.Fragment>
       <div
