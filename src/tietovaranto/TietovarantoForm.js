@@ -83,7 +83,7 @@ export class TietovarantoForm extends React.Component {
                                             htmlFor="vastaava"
                                             className="row"
                                         >
-                                            Vastaava
+                                            Vastuutaho
                                         </label>
                                         <div className="row">
                                             <Text
