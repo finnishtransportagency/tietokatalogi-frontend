@@ -57,7 +57,7 @@ export class ToimintaprosessiForm extends React.Component {
                                             htmlFor="vastaava_organisaatio"
                                             className="row"
                                         >
-                                            Vastaava organisaatio
+                                            Vastuutaho
                                         </label>
                                         <div className="row">
                                             <CreatableCustomSelect
@@ -90,6 +90,24 @@ export class ToimintaprosessiForm extends React.Component {
                                                 className="tk-field form-control"
                                                 id="tarkoitus"
                                                 rows="5"
+                                                placeholder=""
+                                                readOnly={!edit}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-sm-6">
+                                    <div className="col-sm-12">
+                                        <label htmlFor="tyotila" className="row">
+                                            Prosessin toimintajärjestelmän työtila
+                                        </label>
+                                        <div className="row">
+                                            <TextArea
+                                                field="tyotila"
+                                                type="text"
+                                                className="tk-field form-control"
+                                                id="tyotila"
+                                                rows="2"
                                                 placeholder=""
                                                 readOnly={!edit}
                                             />
