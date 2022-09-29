@@ -5,64 +5,64 @@ import { Formik, Form, Field } from "formik";
 import { FormikText as CustomText } from "../form/formik/FormikText";
 import { FormikTextArea as CustomTextArea } from "../form/formik/FormikTextArea";
 
-
 export const PaaTietoryhmaForm = ({
-    edit,
-    onSubmit,
-    remove,
-    setEditable,
-    cancelNew,
-    values: initialValues
+  edit,
+  onSubmit,
+  remove,
+  setEditable,
+  cancelNew,
+  values: initialValues,
 }) => (
-    <Formik
-        initialValues={{
-            nimi: "",
-            kuvaus: "",
-            omistaja: "",
-            ...initialValues
-        }}
-        validate={formikValidateName}
-        onSubmit={onSubmit}
-    >
-        <Form>
-            <Collapse
-                header={`Kaikki tiedot: ${initialValues.nimi || ""}`}
-                isOpened={true}
-            >
-                <div className="form-group row">
-                    <div className="col-sm-6">
-                        <CustomText name="nimi" label="Nimi" readOnly={!edit} />
-                    </div>
+  <Formik
+    initialValues={{
+      nimi: "",
+      kuvaus: "",
+      omistaja: "",
+      rivimuokattupvm: "",
+      ...initialValues,
+    }}
+    validate={formikValidateName}
+    onSubmit={onSubmit}
+  >
+    <Form>
+      <Collapse
+        header={`Kaikki tiedot: ${initialValues.nimi || ""}`}
+        isOpened={true}
+        lastModified={initialValues.rivimuokattupvm}
+      >
+        <div className="form-group row">
+          <div className="col-sm-6">
+            <CustomText name="nimi" label="Nimi" readOnly={!edit} />
+          </div>
 
-                    <div className="col-sm-6">
-                        <CustomTextArea name="kuvaus" label="Kuvaus" readOnly={!edit} />
-                    </div>
-                </div>
+          <div className="col-sm-6">
+            <CustomTextArea name="kuvaus" label="Kuvaus" readOnly={!edit} />
+          </div>
+        </div>
 
-                <div className="form-group row">
-                    <div className="col-sm-6">
-                        <CustomText name="omistaja" label="Omistaja" readOnly={!edit} />
-                    </div>
-                </div>
+        <div className="form-group row">
+          <div className="col-sm-6">
+            <CustomText name="omistaja" label="Omistaja" readOnly={!edit} />
+          </div>
+        </div>
+      </Collapse>
 
-            </Collapse>
-
-            <Field name="formControls">
-                {({ form }) => (
-                    <FormControls
-                        noRightsToModify={initialValues.noRightsToModify}
-                        edit={edit}
-                        values={form.values}
-                        errors={form.errors}
-                        setEditable={setEditable}
-                        submitForm={form.submitForm}
-                        resetForm={form.handleReset}
-                        cancelNew={cancelNew}
-                        remove={remove}
-                        formikValidation
-                    />
-                )}
-            </Field>
-        </Form>
-    </Formik>
+      <Field name="formControls">
+        {({ form }) => (
+          <FormControls
+            noRightsToModify={initialValues.noRightsToModify}
+            edit={edit}
+            values={form.values}
+            errors={form.errors}
+            setEditable={setEditable}
+            submitForm={form.submitForm}
+            resetForm={form.handleReset}
+            cancelNew={cancelNew}
+            remove={remove}
+            formikValidation
+          />
+        )}
+      </Field>
+    </Form>
+  </Formik>
 );
