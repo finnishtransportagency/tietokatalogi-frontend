@@ -80,6 +80,7 @@ export const TietolajiForm = ({
         tietoryhmatunnus: "",
         looginenTietovarantoTunnus: "",
         rivimuokattupvm: "",
+        rivimuokkaajatunnus: "",
         ...initialValues,
       }}
       validate={formikValidateName}
@@ -90,6 +91,7 @@ export const TietolajiForm = ({
           header={`Kaikki tiedot: ${initialValues.nimi || ""}`}
           isOpened={true}
           lastModified={initialValues.rivimuokattupvm}
+          modifyUser={initialValues.rivimuokkaajatunnus}
         >
           <div className="form-group row">
             <div className="col-sm-6">

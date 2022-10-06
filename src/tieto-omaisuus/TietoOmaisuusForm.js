@@ -122,6 +122,7 @@ export class TietoOmaisuusForm extends React.Component {
               header={`Kaikki tiedot: ${title || ""}`}
               isOpened={true}
               lastModified={values.rivimuokattupvm}
+              modifyUser={values.rivimuokkaajatunnus}
             >
               <div className="form-group row">
                 <div className="col-sm-6">

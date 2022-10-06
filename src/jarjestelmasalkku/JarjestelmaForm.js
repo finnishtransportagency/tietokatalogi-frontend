@@ -164,6 +164,7 @@ export class JarjestelmaForm extends HenkiloRooli {
               isOpened={true}
               edit={edit}
               lastModified={values.rivimuokattupvm}
+              modifyUser={values.rivimuokkaajatunnus}
             >
               <div className="form-group row">
                 <div className="col-sm-6">

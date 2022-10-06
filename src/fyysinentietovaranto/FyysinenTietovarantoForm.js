@@ -20,6 +20,7 @@ export const FyysinenTietovarantoForm = ({
       omistaja: "",
       muuta: "",
       rivimuokattupvm: "",
+      rivimuokkaajatunnus: "",
       ...initialValues,
     }}
     validate={formikValidateName}
@@ -30,6 +31,7 @@ export const FyysinenTietovarantoForm = ({
         header={`Kaikki tiedot: ${initialValues.nimi || ""}`}
         isOpened={true}
         lastModified={initialValues.rivimuokattupvm}
+        modifyUser={initialValues.rivimuokkaajatunnus}
       >
         <div className="form-group row">
           <div className="col-sm-6">

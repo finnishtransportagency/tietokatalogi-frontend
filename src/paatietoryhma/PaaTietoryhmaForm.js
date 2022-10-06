@@ -19,6 +19,7 @@ export const PaaTietoryhmaForm = ({
       kuvaus: "",
       omistaja: "",
       rivimuokattupvm: "",
+      rivimuokkaajatunnus: "",
       ...initialValues,
     }}
     validate={formikValidateName}
@@ -29,6 +30,7 @@ export const PaaTietoryhmaForm = ({
         header={`Kaikki tiedot: ${initialValues.nimi || ""}`}
         isOpened={true}
         lastModified={initialValues.rivimuokattupvm}
+        modifyUser={initialValues.rivimuokkaajatunnus}
       >
         <div className="form-group row">
           <div className="col-sm-6">

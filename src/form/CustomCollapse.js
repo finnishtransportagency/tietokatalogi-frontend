@@ -58,7 +58,10 @@ export class CustomCollapse extends React.Component {
           />
           <h4>&nbsp;{this.props.header}</h4>
           {this.props.lastModified && (
-            <p>&nbsp; (Viimeisin päivitys: {this.props.lastModified})</p>
+            <p>
+              &nbsp; (Viimeisin päivitys: {this.props.lastModified},{" "}
+              {this.props.modifyUser})
+            </p>
           )}
         </div>
         <Collapse
