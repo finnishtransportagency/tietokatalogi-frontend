@@ -72,6 +72,7 @@ export class TietojarjestelmapalveluForm extends HenkiloRooli {
               header={`Kaikki tiedot: ${values.nimi || ""}`}
               isOpened={true}
               lastModified={values.rivimuokattupvm}
+              created={values.riviluotupvm}
               modifyUser={values.rivimuokkaajatunnus}
             >
               <div className="form-group row">

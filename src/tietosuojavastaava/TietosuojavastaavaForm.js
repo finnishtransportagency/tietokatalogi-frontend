@@ -25,6 +25,7 @@ export class TietosuojavastaavaForm extends React.Component {
               header={`Kaikki tiedot: ${values.nimi || ""}`}
               isOpened={true}
               lastModified={values.rivimuokattupvm}
+              created={values.riviluotupvm}
               modifyUser={values.rivimuokkaajatunnus}
             >
               <div className="form-group row">

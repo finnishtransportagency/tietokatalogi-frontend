@@ -35,6 +35,7 @@ export class TietovarantoForm extends React.Component {
               header={`Yleiset: ${values.nimi || ""}`}
               isOpened={true}
               lastModified={values.rivimuokattupvm}
+              created={values.riviluotupvm}
               modifyUser={values.rivimuokkaajatunnus}
             >
               <div className="form-group row">
