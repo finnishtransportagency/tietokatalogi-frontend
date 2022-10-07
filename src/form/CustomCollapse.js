@@ -1,6 +1,25 @@
 import React from "react";
 import { Collapse } from "react-collapse";
 
+const ModifiedInformationText = ({ createdDate, modifiedDate, modifyUser }) => {
+  const missingUserText = "tuntematon käyttäjä";
+  if (modifiedDate) {
+    return (
+      <p>
+        (Viimeisin päivitys: {modifiedDate}, {modifyUser || missingUserText})
+      </p>
+    );
+  }
+  if (createdDate) {
+    return (
+      <p>
+        (Luotu: {createdDate}, {modifyUser || missingUserText})
+      </p>
+    );
+  }
+  return null;
+};
+
 export class CustomCollapse extends React.Component {
   constructor(props) {
     super(props);
@@ -57,12 +76,13 @@ export class CustomCollapse extends React.Component {
             onClick={() => this.toggle()}
           />
           <h4>&nbsp;{this.props.header}</h4>
-          {this.props.lastModified && (
-            <p>
-              &nbsp; (Viimeisin päivitys: {this.props.lastModified},{" "}
-              {this.props.modifyUser})
-            </p>
-          )}
+          {
+            <ModifiedInformationText
+              createdDate={this.props.created}
+              modifiedDate={this.props.lastModified}
+              modifyUser={this.props.modifyUser}
+            />
+          }
         </div>
         <Collapse
           isOpened={this.state.isOpen}

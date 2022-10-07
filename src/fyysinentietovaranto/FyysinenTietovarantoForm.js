@@ -20,6 +20,7 @@ export const FyysinenTietovarantoForm = ({
       omistaja: "",
       muuta: "",
       rivimuokattupvm: "",
+      riviluotupvm: "",
       rivimuokkaajatunnus: "",
       ...initialValues,
     }}
@@ -31,6 +32,7 @@ export const FyysinenTietovarantoForm = ({
         header={`Kaikki tiedot: ${initialValues.nimi || ""}`}
         isOpened={true}
         lastModified={initialValues.rivimuokattupvm}
+        created={initialValues.riviluotupvm}
         modifyUser={initialValues.rivimuokkaajatunnus}
       >
         <div className="form-group row">

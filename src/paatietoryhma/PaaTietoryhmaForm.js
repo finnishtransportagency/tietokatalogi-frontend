@@ -19,6 +19,7 @@ export const PaaTietoryhmaForm = ({
       kuvaus: "",
       omistaja: "",
       rivimuokattupvm: "",
+      riviluotupvm: "",
       rivimuokkaajatunnus: "",
       ...initialValues,
     }}
@@ -30,6 +31,7 @@ export const PaaTietoryhmaForm = ({
         header={`Kaikki tiedot: ${initialValues.nimi || ""}`}
         isOpened={true}
         lastModified={initialValues.rivimuokattupvm}
+        created={initialValues.riviluotupvm}
         modifyUser={initialValues.rivimuokkaajatunnus}
       >
         <div className="form-group row">

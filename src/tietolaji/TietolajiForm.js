@@ -80,6 +80,7 @@ export const TietolajiForm = ({
         tietoryhmatunnus: "",
         looginenTietovarantoTunnus: "",
         rivimuokattupvm: "",
+        riviluotupvm: "",
         rivimuokkaajatunnus: "",
         ...initialValues,
       }}
@@ -91,6 +92,7 @@ export const TietolajiForm = ({
           header={`Kaikki tiedot: ${initialValues.nimi || ""}`}
           isOpened={true}
           lastModified={initialValues.rivimuokattupvm}
+          created={initialValues.riviluotupvm}
           modifyUser={initialValues.rivimuokkaajatunnus}
         >
           <div className="form-group row">
