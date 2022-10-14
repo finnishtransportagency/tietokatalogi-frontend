@@ -1,6 +1,6 @@
 import React from "react";
 import { Collapse } from "react-collapse";
-import { parseJSON , format} from "date-fns";
+import { parseJSON, format} from "date-fns";
 
 const ModifiedInformationText = ({ createdDate, modifiedDate, modifyUser }) => {
   const missingUserText = "tuntematon käyttäjä";
