@@ -1,19 +1,27 @@
 import React from "react";
 import { Collapse } from "react-collapse";
+import { parseJSON , format} from "date-fns";
 
 const ModifiedInformationText = ({ createdDate, modifiedDate, modifyUser }) => {
   const missingUserText = "tuntematon käyttäjä";
+  const dateFormat = "d.M.yyyy HH:mm";
   if (modifiedDate) {
+    // eslint-disable-next-line no-unused-vars
+    const [modifiedNoMillisecond, __] = modifiedDate.split(".");
+    const parsedModifyDate = parseJSON(modifiedNoMillisecond);
     return (
       <p>
-        (Viimeisin päivitys: {modifiedDate}, {modifyUser || missingUserText})
+        (Viimeisin päivitys: {format(parsedModifyDate, dateFormat)}, {modifyUser || missingUserText})
       </p>
     );
   }
   if (createdDate) {
+    // eslint-disable-next-line no-unused-vars
+    const [createdNoMillisecond, __] = createdDate.split(".");
+    const parsedCreatedDate = parseJSON(createdNoMillisecond);
     return (
       <p>
-        (Luotu: {createdDate}, {modifyUser || missingUserText})
+        (Luotu: {format(parsedCreatedDate, dateFormat)}, {modifyUser || missingUserText})
       </p>
     );
   }
