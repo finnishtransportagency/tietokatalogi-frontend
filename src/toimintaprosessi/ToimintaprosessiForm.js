@@ -31,6 +31,7 @@ export const ToimintaprosessiForm = ({
     }}
     validate={formikValidateName}
     onSubmit={onSubmit}
+    enableReinitialize
   >
     <Form>
       <Collapse
