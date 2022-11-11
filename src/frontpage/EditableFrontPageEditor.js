@@ -17,6 +17,8 @@ export const EditableFrontPageEditor = ({ value, onChange }) => {
       },
       initialValue: value,
       autoRefresh: { delay: 300 },
+      uploadImage: true,
+      imageUploadEndpoint: "/tietokatalogi/rest/frontpage/image"
     });
     createdEasyMDE.codemirror.on("change", (e) => {
       onChange(createdEasyMDE.value());
