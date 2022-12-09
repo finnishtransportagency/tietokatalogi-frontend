@@ -69,45 +69,30 @@ export class JarjestelmaFilter extends Component {
           />
         </div>
         <div className="col col-sm-3 filter">
-          <Select
+          <JarjestelmaFilterSelect
             name="region"
             options={regionOptions}
-            placeholder={"Järjestelmäalue"}
-            multi={true}
-            searchable={false}
             value={this.props.filters.region}
-            clearable={false}
-            resetValue={undefined}
+            placeholder={"Järjestelmäalue"}
             onChange={(values) => this.updateFilter("region", values)}
-            noResultsText="Ei tuloksia"
           />
         </div>
         <div className="col col-sm-3 filter">
-          <Select
+          <JarjestelmaFilterSelect
             name="type"
             options={typeOptions}
-            placeholder={"Järjestelmätyyppi"}
-            multi={true}
-            searchable={false}
             value={this.props.filters.type}
-            clearable={false}
-            resetValue={undefined}
+            placeholder={"Järjestelmätyyppi"}
             onChange={(values) => this.updateFilter("type", values)}
-            noResultsText="Ei tuloksia"
           />
         </div>
         <div className="col col-sm-3 filter">
-          <Select
+          <JarjestelmaFilterSelect
             name="span"
             options={spanOptions}
-            placeholder={"Elinkaari"}
-            multi={true}
-            searchable={false}
             value={this.props.filters.span}
-            clearable={false}
-            resetValue={undefined}
+            placeholder={"Elinkaari"}
             onChange={(values) => this.updateFilter("span", values)}
-            noResultsText="Ei tuloksia"
           />
         </div>
         <div className="col col-sm-1 filter">
@@ -123,3 +108,24 @@ export class JarjestelmaFilter extends Component {
     );
   }
 }
+
+const JarjestelmaFilterSelect = ({
+  name,
+  options,
+  value,
+  placeholder,
+  onChange,
+}) => (
+  <Select
+    name={name}
+    options={options}
+    placeholder={placeholder}
+    multi={true}
+    searchable={false}
+    value={value}
+    clearable={false}
+    resetValue={undefined}
+    onChange={onChange}
+    noResultsText="Ei tuloksia"
+  />
+);
