@@ -35,6 +35,8 @@ export class JarjestelmaFilter extends Component {
     let typeOptions = [];
     const regionResources = resources["jarjestelmaalue"] || {};
     let regionOptions = [];
+    const organizationResources = resources["omistava_organisaatio"] || {};
+    let owningOrganizationOptions = [];
 
     //TODO: change to {value: key, label: value} when db is ready
     Object.entries(spanResources).forEach(([key, value]) => {
@@ -46,10 +48,13 @@ export class JarjestelmaFilter extends Component {
     Object.entries(regionResources).forEach(([key, value]) => {
       regionOptions.push({ value: value, label: value });
     });
+    Object.entries(organizationResources).forEach(([key, value]) => {
+      owningOrganizationOptions.push({ value: value, label: value });
+    });
 
     return (
       <div className="row filter-toolbar">
-        <div className="col col-sm-2 filter">
+        <div className="col col-sm-3 filter">
           <input
             type="text"
             name="filter"
@@ -68,7 +73,7 @@ export class JarjestelmaFilter extends Component {
             className={this.props.className + " form-control"}
           />
         </div>
-        <div className="col col-sm-3 filter">
+        <div className="col col-sm-2 filter">
           <JarjestelmaFilterSelect
             name="region"
             options={regionOptions}
@@ -77,7 +82,7 @@ export class JarjestelmaFilter extends Component {
             onChange={(values) => this.updateFilter("region", values)}
           />
         </div>
-        <div className="col col-sm-3 filter">
+        <div className="col col-sm-2 filter">
           <JarjestelmaFilterSelect
             name="type"
             options={typeOptions}
@@ -86,13 +91,24 @@ export class JarjestelmaFilter extends Component {
             onChange={(values) => this.updateFilter("type", values)}
           />
         </div>
-        <div className="col col-sm-3 filter">
+        <div className="col col-sm-2 filter">
           <JarjestelmaFilterSelect
             name="span"
             options={spanOptions}
             value={this.props.filters.span}
             placeholder={"Elinkaari"}
             onChange={(values) => this.updateFilter("span", values)}
+          />
+        </div>
+        <div className="col col-sm-2 filter">
+          <JarjestelmaFilterSelect
+            name="owning_organization"
+            options={owningOrganizationOptions || []}
+            value={this.props.filters.owning_organization}
+            placeholder={"Omistava organisaatio"}
+            onChange={(values) =>
+              this.updateFilter("owning_organization", values)
+            }
           />
         </div>
         <div className="col col-sm-1 filter">
