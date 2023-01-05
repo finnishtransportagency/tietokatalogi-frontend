@@ -9,7 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 // isDate() and isValid() both return true
 // for dates with a year of more than 4 digits, but such
 // dates lead to a RangeError in format()
-const isValidDate = (date) =>
+export const isValidDate = (date) =>
   isDate(date) && isValid(date) && date.getFullYear().toString().length <= 4;
 
 export const FormikCustomDatePicker = ({ label, name, readOnly }) => {

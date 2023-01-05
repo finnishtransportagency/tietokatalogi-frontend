@@ -927,7 +927,7 @@ export class JarjestelmaForm extends HenkiloRooli {
                         field="luokituksen_tarkastuspvm"
                         className="tk-field form-control"
                         id="luokituksen_tarkastuspvm"
-                        dateFormat="DD.MM.YYYY"
+                        dateFormat="dd.MM.yyyy"
                         readOnly={!edit}
                       />
                     </div>
