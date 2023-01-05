@@ -1,3 +1,5 @@
+import { personSelectToLabel } from "../henkilorooli/HenkiloRooliUtils";
+
 const getResourcesWithName = (resources, resourceName) => {
   if (resources === null) return {};
   return resources[resourceName] || {};
@@ -25,3 +27,9 @@ export const getScoredFieldOptions = (resources, resourceName) => {
     }))
     .sort((a, b) => a.value - b.value);
 };
+
+export const getPersonFieldOptions = (people) =>
+  (people || []).map((person) => ({
+    value: person.tunnus,
+    label: personSelectToLabel(person),
+  }));
