@@ -11,7 +11,7 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - npm run build --build-arg PROXY_URL="${PROXY_URL}"
+      - npm run build --build-arg PROXY_URL=${PROXY_URL}
       - docker build -f Dockerfile.aws -t $ECR_REPOSITORY_NAME:latest .
   post_build:
     commands:
