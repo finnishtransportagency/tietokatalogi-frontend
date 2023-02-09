@@ -1,15 +1,12 @@
-FROM node:12-alpine
+#production environment
+FROM nginx:1.23.2-alpine
 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+# Used by nginx
+ARG PROXY_URL
+ENV PROXY_URL=${PROXY_URL}
+RUN echo ${PROXY_URL}
 
-COPY package.json /usr/src/app
-COPY package-lock.json /usr/src/app
-
-RUN npm install --silent
-RUN npm install react-scripts --silent
-
-COPY . /usr/src/app
-
-CMD ["npm", "run", "start"]
-EXPOSE 3000
+COPY ./build /var/www
+COPY ./nginx/nginx.conf.template /nginx.conf.template
+# envsubst to substitute ENV variables in config
+CMD ["/bin/sh" , "-c" , "envsubst < /nginx.conf.template > /etc/nginx/nginx.conf && exec nginx -g 'daemon off;'"]
