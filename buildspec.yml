@@ -12,7 +12,7 @@ phases:
     commands:
       - echo Build started on `date`
       - npm run build
-      - docker build -f Dockerfile.aws --build-arg PROXY_URL=${PROXY_URL} -t $ECR_REPOSITORY_NAME:latest .
+      - docker build -f Dockerfile.aws --build-arg PROXY_URL=$PROXY_URL -t $ECR_REPOSITORY_NAME:latest .
   post_build:
     commands:
       - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_BUILDIMAGE_REPOSITORY_URI
