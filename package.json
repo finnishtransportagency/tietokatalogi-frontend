@@ -125,7 +125,7 @@
   "homepage": ".",
   "proxy": {
     "/tietokatalogi/rest": {
-      "target": "http://localhost:8080"
+      "target": "http://localhost:8082"
     },
     "/tietokatalogi/external": {
       "target": "http://tomcat:8080"
