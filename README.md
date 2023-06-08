@@ -5,6 +5,10 @@
 
 ## Frontend
 
+## Node and npm versions
+Node: 14.21.3
+npm: 6.14.18
+
 ### With docker
 
 Build the project outside docker with `npm run build`.
@@ -45,7 +49,7 @@ npm install
 Run
 
 ```
-npm run start
+npm start
 ```
 
 To specify the url path for backend (other than the default tietokatalogi/rest)
