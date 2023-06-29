@@ -1,33 +1,9 @@
 import React from "react";
 
-import axios from "axios";
-
 import { EditableFrontPageEditor } from "./EditableFrontPageEditor";
 import { EditableFrontPageDisplay } from "./EditableFrontPageDisplay";
-import { fullRestURL } from "../App";
+import { getTest, sendPost } from "../axios/editableFrontPageContainer";
 
-
-// TODO: move to better location
-const sendPost = ({mainText, sideText}) => {
-  axios
-    .post(`${fullRestURL()}/frontpage/`, {
-      mainText,
-      sideText,
-    })
-    .then((response) => {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log("error", error);
-    });
-};
-
-const getTest = () => {
-  return axios
-    .get(`${fullRestURL()}/frontpage`)
-    .then((response) => response.data)
-    .catch((error) => console.log(error));
-};
 
 export const EditableFrontPageContainer = () => {
   const [mainText, setMainText] = React.useState("");
@@ -39,7 +15,7 @@ export const EditableFrontPageContainer = () => {
     setLoading(true);
     getTest().then((data) => {
       setLoading(false);
-      if (!data) return;
+      if (!data) return; 
       const { mainText = "", sideText = "" } = data;
       setMainText(mainText);
       setSideText(sideText);
