@@ -13,13 +13,13 @@ const ContactsView = () => {
             if (!data) return;
             const {sideText = "" } = data;
             const relevantText = sideText.split("#").find((s) => s.includes("Yhteystiedot"))
-            if(!relevantText || relevantText === "") setSideText('Tietoa ei löytynyt, tarkista että etusivussa löytyy sivutiedosta tieto muodossa "### Yhteysteidot"')
+            if(!relevantText) setSideText('Tietoa ei löytynyt, tarkista että etusivussa löytyy sivutiedosta tieto muodossa "### Yhteystiedot"')
             else setSideText(relevantText);
         });
     }, []);
 
     return (
-        <div className="contacts-asdasd">
+        <div className="contacts">
             <h2>Yhteystiedot</h2>
             {loading ? <p>Ladataan...</p> : (
                 <EditableFrontPageDisplay markdown={sideText} />
