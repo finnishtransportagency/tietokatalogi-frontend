@@ -1,84 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getTest } from "../axios/editableFrontPageContainer";
+import { EditableFrontPageDisplay } from "../frontpage/EditableFrontPageDisplay";
 
 const ContactsView = () => {
-    const contact1 = {
-        sector: "Tietoarkkitehtuuri",
-        contactPerson: {
-            name: "Tomi Mykkänen",
-            phone: "029 534 3052",
-            mobile: "040 673 6562",
-            email: "tomi.mykkanen@vayla.fi"
-        }
-    };
-    const contact2 = {
-        sector: "Järjestelmäsalkku",
-        contactPerson: {
-            name: "Ivan Guerra-Toivonen",
-            phone: "029 534 3295",
-            mobile: "050 470 4178",
-            email: "ivan.guerra-toivonen@vayla.fi"
-        }
-    };
-    const contact3 = {
-        sector: "Palvelukatalogi",
-        contactPerson: {
-            name: "Miina Vina",
-            phone: "029 534 3213",
-            mobile: "050 512 9341",
-            email: "miina.vina@vayla.fi"
-        }
-    };
+    const [sideText, setSideText] = useState("");
+    const [loading, setLoading] = useState(true);
 
-    const contact4 = {
-        sector: "Sovellussalkku",
-        contactPerson: {
-            name: "Toni Kiri",
-            phone: "029 534 3179",
-            mobile: null,
-            email: "toni.kiri@vayla.fi"
-        }
-    };
-
-    const contactInfo = (contact, id) => {
-        return (
-            <div key={id} className="col-md-6">
-                <h3>{contact.sector}</h3>
-                {Object.entries(contact.contactPerson).map(function(
-                    value,
-                    idx
-                ) {
-                    const bold = value[0] === "name";
-                    const val = value[1];
-                    if (val === null) {
-                        return <div key={id} />;
-                    }
-                    if (value[0] === "email")
-                        return (
-                            <div key={`${id}-${idx}`}>
-                                <a href={`mailto:${val}`}>{val}</a>
-                            </div>
-                        );
-                    return (
-                        <div key={`${id}-${idx}`}>
-                            {bold && <h4>{`${val}`}</h4>}
-                            {!bold && <p>{`${val}`}</p>}
-                        </div>
-                    );
-                })}
-            </div>
-        );
-    };
-
-    const contacts = [contact1, contact2, contact3, contact4];
+    useEffect(() => {
+        setLoading(true);
+        getTest().then((data) => {
+            setLoading(false);
+            if (!data) return;
+            const {sideText = "" } = data;
+            // Regex explanation: find a line of text only containing the word "Yhteystiedot", with possibly some non-alphanumeric or white-space characters in the beginning or the end
+            // I.e., if the word "Yhteystiedot" occurs in the middle of a sentence, it is not found by the regex
+            // Reason for this pattern is due to how our text is stored in the database
+            const relevantText = sideText.split(/^[^a-zA-Z\d\s:]*Yhteystiedot[^a-zA-Z\d\s:]*$/mg)[1]
+            if(!relevantText) setSideText('Tietoa ei löytynyt, tarkista että etusivussa löytyy sivutiedosta tieto muodossa "### Yhteystiedot"')
+            else setSideText(relevantText);
+        });
+    }, []);
 
     return (
         <div className="contacts">
             <h2>Yhteystiedot</h2>
-            <div className="form-group row">
-                {contacts.map(function(contact, idx) {
-                    return contactInfo(contact, idx);
-                })}
-            </div>
+            {loading ? <p>Ladataan...</p> : (
+                <EditableFrontPageDisplay markdown={sideText} />
+            )}
         </div>
     );
 };
