@@ -14,16 +14,10 @@ npm: 6.14.18
 
 Build the project outside docker with `npm run build`.
 
-Build the container with
+Start the backend container and note its name from `docker ps`. Build the container with
 
 ```shell
 docker build -t tietokatalogi-frontend --build-arg PROXY_URL=http://{backend container's name} .
-```
-
-..., where the backend's address is either http://localhost if running outside docker, or, if running with docker-compose, can be found with
-
-```shell
-docker network inspect tietokatalogi-backend_default
 ```
 
 Run the container with
