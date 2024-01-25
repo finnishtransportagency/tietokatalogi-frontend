@@ -34,7 +34,7 @@ docker-compose down
 
 ### Without docker
 
-TODO: how to change package.json -> proxy config? Currently it's configured to work inside the container only.
+TODO: how to proxy requests locally without nginx?
 
 Install
 
