@@ -1,5 +1,7 @@
 #production environment
-FROM nginx:1.23.2-alpine
+FROM nginx:1.25.3-alpine
+
+RUN ["apk", "upgrade", "--no-cache"]
 
 # Used by nginx
 ARG PROXY_URL
